@@ -38,6 +38,16 @@ function useCounter(target: number, duration = 1600, start = false) {
   return n;
 }
 
+function Stat({ n, suffix, label, visible }: { n: number; suffix: string; label: string; visible: boolean }) {
+  const v = useCounter(n, 1800, visible);
+  return (
+    <div className="rounded-xl bg-white/10 backdrop-blur border border-white/15 p-5 text-center">
+      <div className="text-3xl md:text-4xl font-bold text-gold">{v.toLocaleString()}{suffix}</div>
+      <div className="mt-1 text-xs md:text-sm text-white/80 uppercase tracking-wider">{label}</div>
+    </div>
+  );
+}
+
 function Counters() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -55,15 +65,7 @@ function Counters() {
   ];
   return (
     <div ref={ref} className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-      {stats.map((s) => {
-        const v = useCounter(s.n, 1800, visible);
-        return (
-          <div key={s.label} className="rounded-xl bg-white/10 backdrop-blur border border-white/15 p-5 text-center">
-            <div className="text-3xl md:text-4xl font-bold text-gold">{v.toLocaleString()}{s.suffix}</div>
-            <div className="mt-1 text-xs md:text-sm text-white/80 uppercase tracking-wider">{s.label}</div>
-          </div>
-        );
-      })}
+      {stats.map((s) => <Stat key={s.label} {...s} visible={visible} />)}
     </div>
   );
 }
