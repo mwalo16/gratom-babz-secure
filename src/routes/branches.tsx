@@ -19,17 +19,19 @@ export const Route = createFileRoute("/branches")({
 
 // approximate coordinates as percentages within a stylized Kenya bounding box
 const branches = [
-  { name: "Head Office", location: "Kiambu Rd, off Kugeria North", region: "Kiambu County", postal: "P.O. Box 1800 – 00900 Kiambu", phone: "020 234 1729", alt: "0726 459 010 · 0729 337 005 · 0716 383 502", x: 40, y: 46 },
-  { name: "Kiambu", location: "Rumathi House", region: "Kiambu County", phone: "0723 684 901", x: 47, y: 55 },
-  { name: "Kikuyu / Wangige", location: "Bishop Kariuki Community Centre", region: "Kiambu County", phone: "0716 546 096", x: 33, y: 60 },
-  { name: "Nairobi", location: "Ngara Fig Tree – Bhaveshi Centre", region: "Nairobi County", phone: "0726 382 628", x: 45, y: 70 },
-  { name: "Limuru", location: "Ushirika Centre", region: "Kiambu County", phone: "0707 846 623", x: 26, y: 47 },
-  { name: "Thika", location: "Savannah Building", region: "Kiambu County", phone: "0736 859 500", x: 58, y: 63 },
-  { name: "Mombasa / Malindi", location: "Savannah Building", region: "Coast Region", phone: "0725 478 460", x: 72, y: 95 },
+  { name: "Head Office", location: "Kiambu Rd, off Kugeria North", region: "Kiambu County", postal: "P.O. Box 1800 – 00900 Kiambu", phone: "020 234 1729", alt: "0726 459 010 · 0729 337 005 · 0716 383 502" },
+  { name: "Kiambu", location: "Rumathi House", region: "Kiambu County", phone: "0723 684 901" },
+  { name: "Kikuyu / Wangige", location: "Bishop Kariuki Community Centre", region: "Kiambu County", phone: "0716 546 096" },
+  { name: "Nairobi", location: "Ngara Fig Tree – Bhaveshi Centre", region: "Nairobi County", phone: "0726 382 628" },
+  { name: "Limuru", location: "Ushirika Centre", region: "Kiambu County", phone: "0707 846 623" },
+  { name: "Thika", location: "Savannah Building", region: "Kiambu County", phone: "0736 859 500" },
+  { name: "Mombasa / Malindi", location: "Savannah Building", region: "Coast Region", phone: "0725 478 460" },
 ];
 
 function Branches() {
   const [active, setActive] = useState<string>("Head Office");
+  const current = branches.find((b) => b.name === active) ?? branches[0];
+  const mapQuery = `${current.location}, ${current.name === "Head Office" ? "Kiambu" : current.name}, Kenya`;
   return (
     <>
       <PageHero title="Branches Across Kenya" subtitle="A growing network of regional offices coordinated from a central 24-hour control room." />
