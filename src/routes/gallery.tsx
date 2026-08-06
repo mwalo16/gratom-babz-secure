@@ -1,14 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { useState } from "react";
-import heroImg from "../assets/hero.jpg";
-import k9Img from "../assets/k9.jpg";
-import motoImg from "../assets/motorcycle.jpg";
-import teamImg from "../assets/team.jpg";
-import controlImg from "../assets/control-room.jpg";
-import patrolImg from "../assets/patrol.jpg";
-import cctvImg from "../assets/cctv.jpg";
-import officerImg from "../assets/officer.jpg";
 import fleetBranded from "../assets/fleet-branded.jpg.asset.json";
 import fleetCars from "../assets/fleet-cars.jpg.asset.json";
 import motoRiders from "../assets/moto-riders.jpg.asset.json";
@@ -19,6 +11,14 @@ import k9Pair from "../assets/k9-pair.jpg.asset.json";
 import k9Training from "../assets/k9-training.jpg.asset.json";
 import cctvInstall from "../assets/cctv-install.jpg.asset.json";
 import alarmSystem from "../assets/alarm-system.jpg.asset.json";
+import paradeSalute from "../assets/parade-salute.jpg.asset.json";
+import k9BiteTraining from "../assets/k9-bite-training.jpg.asset.json";
+import patrolTruckBlue from "../assets/patrol-truck-blue.jpg.asset.json";
+import guardParade from "../assets/guard-parade.jpg.asset.json";
+import alarmKit from "../assets/alarm-kit.jpg.asset.json";
+import dogUnitVehicle from "../assets/dog-unit-vehicle.jpg.asset.json";
+import cctvMounting from "../assets/cctv-mounting.jpg.asset.json";
+import razorWire from "../assets/razor-wire.jpg.asset.json";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -37,25 +37,25 @@ export const Route = createFileRoute("/gallery")({
 const items = [
   { src: fleetBranded.url, cat: "Patrol Vehicles" },
   { src: fleetCars.url, cat: "Patrol Vehicles" },
+  { src: patrolTruckBlue.url, cat: "Patrol Vehicles" },
+  { src: dogUnitVehicle.url, cat: "Patrol Vehicles" },
   { src: responseUnit.url, cat: "Response Unit" },
   { src: motoRiders.url, cat: "Motorcycle Patrol" },
   { src: motoBranded.url, cat: "Motorcycle Patrol" },
   { src: k9Officer.url, cat: "K9 Unit" },
   { src: k9Pair.url, cat: "K9 Unit" },
   { src: k9Training.url, cat: "K9 Unit" },
+  { src: k9BiteTraining.url, cat: "K9 Unit" },
   { src: cctvInstall.url, cat: "CCTV Installation" },
+  { src: cctvMounting.url, cat: "CCTV Installation" },
   { src: alarmSystem.url, cat: "Alarm Systems" },
-  { src: patrolImg, cat: "Patrol Vehicles" },
-  { src: motoImg, cat: "Motorcycle Patrol" },
-  { src: officerImg, cat: "Security Officers" },
-  { src: k9Img, cat: "K9 Unit" },
-  { src: cctvImg, cat: "CCTV Installation" },
-  { src: controlImg, cat: "Control Room" },
-  { src: teamImg, cat: "Corporate Events" },
-  { src: heroImg, cat: "Patrol Vehicles" },
+  { src: alarmKit.url, cat: "Alarm Systems" },
+  { src: paradeSalute.url, cat: "Security Officers" },
+  { src: guardParade.url, cat: "Security Officers" },
+  { src: razorWire.url, cat: "Electric Fencing" },
 ];
 
-const cats = ["All","Patrol Vehicles","Motorcycle Patrol","Response Unit","Security Officers","K9 Unit","CCTV Installation","Alarm Systems","Control Room","Corporate Events"];
+const cats = ["All","Patrol Vehicles","Motorcycle Patrol","Response Unit","Security Officers","K9 Unit","CCTV Installation","Alarm Systems","Electric Fencing"];
 
 
 function Gallery() {
