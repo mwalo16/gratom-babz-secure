@@ -9,6 +9,16 @@ import controlImg from "../assets/control-room.jpg";
 import patrolImg from "../assets/patrol.jpg";
 import cctvImg from "../assets/cctv.jpg";
 import officerImg from "../assets/officer.jpg";
+import fleetBranded from "../assets/fleet-branded.jpg.asset.json";
+import fleetCars from "../assets/fleet-cars.jpg.asset.json";
+import motoRiders from "../assets/moto-riders.jpg.asset.json";
+import motoBranded from "../assets/moto-branded.jpg.asset.json";
+import responseUnit from "../assets/response-unit.jpg.asset.json";
+import k9Officer from "../assets/k9-officer.jpg.asset.json";
+import k9Pair from "../assets/k9-pair.jpg.asset.json";
+import k9Training from "../assets/k9-training.jpg.asset.json";
+import cctvInstall from "../assets/cctv-install.jpg.asset.json";
+import alarmSystem from "../assets/alarm-system.jpg.asset.json";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -25,17 +35,28 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const items = [
-  { src: patrolImg, cat: "Patrol Vehicles", w: 6, h: 4 },
-  { src: motoImg, cat: "Motorcycle Patrol", w: 4, h: 5 },
-  { src: officerImg, cat: "Security Officers", w: 4, h: 6 },
-  { src: k9Img, cat: "K9 Unit", w: 6, h: 4 },
-  { src: cctvImg, cat: "CCTV Installation", w: 6, h: 4 },
-  { src: controlImg, cat: "Control Room", w: 6, h: 5 },
-  { src: teamImg, cat: "Corporate Events", w: 8, h: 5 },
-  { src: heroImg, cat: "Patrol Vehicles", w: 8, h: 4 },
+  { src: fleetBranded.url, cat: "Patrol Vehicles" },
+  { src: fleetCars.url, cat: "Patrol Vehicles" },
+  { src: responseUnit.url, cat: "Response Unit" },
+  { src: motoRiders.url, cat: "Motorcycle Patrol" },
+  { src: motoBranded.url, cat: "Motorcycle Patrol" },
+  { src: k9Officer.url, cat: "K9 Unit" },
+  { src: k9Pair.url, cat: "K9 Unit" },
+  { src: k9Training.url, cat: "K9 Unit" },
+  { src: cctvInstall.url, cat: "CCTV Installation" },
+  { src: alarmSystem.url, cat: "Alarm Systems" },
+  { src: patrolImg, cat: "Patrol Vehicles" },
+  { src: motoImg, cat: "Motorcycle Patrol" },
+  { src: officerImg, cat: "Security Officers" },
+  { src: k9Img, cat: "K9 Unit" },
+  { src: cctvImg, cat: "CCTV Installation" },
+  { src: controlImg, cat: "Control Room" },
+  { src: teamImg, cat: "Corporate Events" },
+  { src: heroImg, cat: "Patrol Vehicles" },
 ];
 
-const cats = ["All","Patrol Vehicles","Motorcycle Patrol","Security Officers","K9 Unit","CCTV Installation","Control Room","Corporate Events"];
+const cats = ["All","Patrol Vehicles","Motorcycle Patrol","Response Unit","Security Officers","K9 Unit","CCTV Installation","Alarm Systems","Control Room","Corporate Events"];
+
 
 function Gallery() {
   const [active, setActive] = useState("All");
