@@ -26,17 +26,17 @@ function Contact() {
       <section className="py-16">
         <div className="container-x grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { i: Phone, t: "Head Office", lines: ["020 234 1729", "0726 459 010", "0736 859 500"] },
+            { i: Phone, t: "Head Office", lines: ["020 234 1729", "0726 459 010", "0716 383 502"] },
             { i: Phone, t: "24-Hour Control Room", lines: ["0729 337 005"], accent: true },
-            { i: Phone, t: "Operations Department", lines: ["0726 382 638", "0723 684 901", "0725 478 460"] },
-            { i: Mail, t: "Email", lines: ["gtbabzservices@gmail.com", "gratombabzservices@yahoo.com"] },
+            { i: Phone, t: "Branch Lines", lines: ["Kiambu: 0723 684 901", "Nairobi: 0726 382 628", "Thika: 0736 859 500"] },
+            { i: Mail, t: "Email", lines: ["gtbabzservices@gmail.com"] },
           ].map((c) => (
             <div key={c.t} className={`rounded-xl p-6 border shadow-sm ${c.accent ? "gradient-navy text-navy-foreground border-gold/40" : "bg-background"}`}>
               <c.i className={`h-8 w-8 mb-3 ${c.accent ? "text-gold" : "text-gold"}`} />
               <h3 className={`font-bold ${c.accent ? "text-white" : "text-navy"}`}>{c.t}</h3>
               <div className="mt-3 space-y-1">
                 {c.lines.map((l) => (
-                  <a key={l} href={l.includes("@") ? `mailto:${l}` : `tel:${l.replace(/\s/g,"")}`} className={`block text-sm hover:underline ${c.accent ? "text-white/90" : "text-muted-foreground hover:text-navy"}`}>
+                  <a key={l} href={l.includes("@") ? `mailto:${l}` : `tel:${l.split(":").pop()!.replace(/\s/g,"")}`} className={`block text-sm hover:underline ${c.accent ? "text-white/90" : "text-muted-foreground hover:text-navy"}`}>
                     {l}
                   </a>
                 ))}
@@ -75,7 +75,7 @@ function Contact() {
             <div className="rounded-2xl overflow-hidden border shadow-md">
               <iframe
                 title="Google Maps"
-                src="https://www.google.com/maps?q=Nairobi,+Kenya&output=embed"
+                src="https://www.google.com/maps?q=Kiambu+Road,+Kiambu,+Kenya&output=embed"
                 width="100%"
                 height="380"
                 loading="lazy"
@@ -92,7 +92,7 @@ function Contact() {
               <div className="rounded-xl bg-background border p-5">
                 <MapPin className="h-6 w-6 text-gold" />
                 <div className="mt-2 font-semibold text-navy">Head Office</div>
-                <div className="text-sm text-muted-foreground">Nairobi, Kenya</div>
+                <div className="text-sm text-muted-foreground">Kiambu Rd, off Kugeria North · P.O. Box 1800–00900 Kiambu</div>
               </div>
             </div>
             <a href="https://wa.me/254729337005" target="_blank" rel="noopener" className="flex items-center justify-center gap-2 rounded-xl px-6 py-4 font-semibold text-white shadow-lg hover:shadow-xl transition-shadow" style={{ backgroundColor: "#25D366" }}>

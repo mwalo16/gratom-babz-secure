@@ -40,7 +40,7 @@ function About() {
               Gratom Babz Security Services Ltd is a fully-licensed Kenyan private security firm serving residential estates, corporates, industries, retail and government clients. We combine highly-trained officers with modern surveillance technology to deliver measurable security outcomes.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              With branches in Kiambu, Murang'a, Nyeri and Nakuru — and a 24-hour control room coordinating rapid response — we cover Central Kenya and beyond with disciplined, dependable service.
+              From our head office on Kiambu Road (off Kugeria North) and branches in Kiambu, Kikuyu/Wangige, Nairobi, Limuru, Thika and Mombasa/Malindi — with a 24-hour control room coordinating rapid response — we serve clients across Kenya. We are affiliate members of PSIA, KNCCI, KEPSA and the Federation of Kenya Employers.
             </p>
           </div>
         </div>

@@ -60,7 +60,7 @@ function Counters() {
   const stats = [
     { n: 24, suffix: "/7", label: "Operations" },
     { n: 15, suffix: "+", label: "Rapid Response Teams" },
-    { n: 4, suffix: "", label: "Branches Nationwide" },
+    { n: 7, suffix: "", label: "Offices Nationwide" },
     { n: 1200, suffix: "+", label: "Trained Officers" },
     { n: 5000, suffix: "+", label: "Protected Properties" },
   ];
@@ -115,7 +115,7 @@ function Home() {
               { i: Users, t: "Highly Trained Officers", d: "Rigorous vetting, physical training and continuous professional development." },
               { i: Zap, t: "Modern Technology", d: "GPS-tracked patrols, digital reporting and integrated alarm systems." },
               { i: Radio, t: "24-Hour Control Room", d: "Live monitoring and dispatch every hour of every day." },
-              { i: MapPin, t: "Nationwide Coverage", d: "Branches across the Central and Rift Valley regions with expansion in progress." },
+              { i: MapPin, t: "Nationwide Coverage", d: "Head office in Kiambu plus branches in Nairobi, Kikuyu, Limuru, Thika and Mombasa/Malindi." },
               { i: Clock, t: "Rapid Response Teams", d: "Armed and unarmed reaction units ready to deploy in minutes." },
             ].map((f) => (
               <div key={f.t} className="group rounded-xl bg-background p-6 shadow-sm border hover:shadow-lg hover:-translate-y-1 transition-all">

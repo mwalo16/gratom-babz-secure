@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
-import { Shield, Home, Building2, Factory, UserCheck, Users, Bike, Bell, Camera, Video, KeyRound, Fingerprint, Zap, Dog, ClipboardList, ShieldAlert, ArrowRight } from "lucide-react";
+import { Shield, Home, Building2, Factory, UserCheck, Users, Bike, Bell, Camera, Video, KeyRound, Fingerprint, Zap, Dog, ClipboardList, ShieldAlert, Car, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -17,20 +17,22 @@ export const Route = createFileRoute("/services")({
 });
 
 const services = [
-  { i: Shield, t: "Manned Guarding", d: "Uniformed, vetted officers for every environment." },
+  { i: Shield, t: "Security Guards & Guardettes", d: "Uniformed, vetted male and female officers for every environment." },
   { i: Home, t: "Residential Security", d: "Guards, patrols and monitoring for estates and homes." },
   { i: Building2, t: "Commercial Security", d: "Offices, retail, banks and hospitality protection." },
   { i: Factory, t: "Industrial Security", d: "Perimeter, asset and personnel protection for plants." },
   { i: UserCheck, t: "VIP Protection", d: "Trained close-protection officers for executives and dignitaries." },
   { i: Users, t: "Event Security", d: "Crowd control, access and rapid response for events." },
   { i: Bike, t: "Mobile Patrol", d: "GPS-tracked motorcycle and vehicle patrols." },
-  { i: Bell, t: "Alarm Response", d: "24/7 dispatch of reaction units on alarm trigger." },
+  { i: Bell, t: "Alarm Response & Back-up", d: "24/7 dispatch of reaction and back-up units on alarm trigger." },
   { i: Camera, t: "CCTV Installation", d: "Design, supply and installation of surveillance systems." },
   { i: Video, t: "CCTV Monitoring", d: "Live remote monitoring from our control room." },
   { i: KeyRound, t: "Access Control Systems", d: "Card, PIN and mobile-based site access." },
   { i: Fingerprint, t: "Biometric Systems", d: "Fingerprint and facial recognition entry solutions." },
   { i: Zap, t: "Electric Fence Installation", d: "Certified, energized perimeter fencing." },
-  { i: Dog, t: "Dog (K9) Unit", d: "Detection and deterrence dogs with certified handlers." },
+  { i: Dog, t: "Security Dog Services", d: "Detection and deterrence dogs with certified handlers." },
+  { i: Bell, t: "Intruder Alarm Systems", d: "Supply, installation and maintenance of intruder alarms." },
+  { i: Car, t: "Car Tracking & Fleet Management", d: "GPS vehicle tracking, fuel monitoring and fleet reporting." },
   { i: ClipboardList, t: "Security Consultancy", d: "Advisory on strategy, policy and technology." },
   { i: ShieldAlert, t: "Risk Assessment", d: "Comprehensive on-site threat and vulnerability audits." },
 ];
