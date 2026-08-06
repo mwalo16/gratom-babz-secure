@@ -36,42 +36,32 @@ function Branches() {
 
       <section className="py-16">
         <div className="container-x grid gap-10 lg:grid-cols-[1.1fr_1fr] items-start">
-          {/* Stylized map */}
-          <div className="relative rounded-2xl border bg-muted/40 aspect-[4/5] overflow-hidden shadow-inner">
-            {/* Kenya silhouette (stylized) */}
-            <svg viewBox="0 0 100 120" className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="mapGrad" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#0B2341" stopOpacity="0.08" />
-                  <stop offset="100%" stopColor="#0B2341" stopOpacity="0.18" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M20,30 L55,20 L80,28 L90,50 L82,72 L78,90 L65,105 L45,110 L28,100 L18,80 L15,55 Z"
-                fill="url(#mapGrad)"
-                stroke="#0B2341"
-                strokeWidth="0.6"
-                strokeOpacity="0.4"
+          {/* Map of the selected office */}
+          <div className="lg:sticky lg:top-28 space-y-4">
+            <div className="rounded-2xl border overflow-hidden shadow-md">
+              <iframe
+                title={`Map of ${active}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}
+                width="100%"
+                height="460"
+                loading="lazy"
+                className="block"
+                referrerPolicy="no-referrer-when-downgrade"
               />
-            </svg>
-            {branches.map((b) => (
-              <button
-                key={b.name}
-                onClick={() => setActive(b.name)}
-                className="absolute -translate-x-1/2 -translate-y-full group"
-                style={{ left: `${b.x}%`, top: `${b.y}%` }}
-                aria-label={b.name}
-              >
-                <div className="relative">
-                  <MapPin className={`h-8 w-8 drop-shadow-lg transition-all ${active === b.name ? "text-gold scale-125" : "text-navy hover:text-gold"}`} strokeWidth={2.5} fill={active === b.name ? "#D4A017" : "transparent"} />
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 text-xs font-bold text-navy whitespace-nowrap bg-white/90 px-2 py-0.5 rounded shadow">
-                    {b.name}
-                  </div>
-                  {active === b.name && <div className="absolute inset-0 rounded-full bg-gold/40 animate-ping" />}
-                </div>
-              </button>
-            ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {branches.map((b) => (
+                <button
+                  key={b.name}
+                  onClick={() => setActive(b.name)}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${active === b.name ? "bg-navy text-navy-foreground border-navy" : "bg-background hover:border-navy"}`}
+                >
+                  <MapPin className="h-3.5 w-3.5" /> {b.name}
+                </button>
+              ))}
+            </div>
           </div>
+
 
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-navy mb-6">Our Locations</h2>
