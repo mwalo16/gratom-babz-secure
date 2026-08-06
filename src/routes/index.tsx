@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Shield, Users, Radio, MapPin, Clock, Zap, ArrowRight, CheckCircle2, Award, HeartHandshake, Star } from "lucide-react";
-import heroImg from "../assets/hero.jpg";
-import k9Img from "../assets/k9.jpg";
-import motoImg from "../assets/motorcycle.jpg";
+import heroAsset from "../assets/fleet-branded.jpg.asset.json";
+import k9Asset from "../assets/k9-officer.jpg.asset.json";
+import motoAsset from "../assets/moto-riders.jpg.asset.json";
+import cctvAsset from "../assets/cctv-install.jpg.asset.json";
+import responseAsset from "../assets/response-unit.jpg.asset.json";
 import teamImg from "../assets/team.jpg";
 import controlImg from "../assets/control-room.jpg";
 import { SectionHeader } from "../components/site/Section";
@@ -75,7 +77,7 @@ function Home() {
     <>
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        <img src={heroImg} alt="Gratom Babz patrol vehicle and motorcycle unit at dusk" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={heroAsset.url} alt="Gratom Babz patrol vehicle and motorcycle unit at dusk" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/40" />
         <div className="container-x relative py-20 md:py-28 text-navy-foreground">
           <div className="max-w-3xl animate-fade-up">
@@ -176,10 +178,10 @@ function Home() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { img: teamImg, t: "Manned Guarding", d: "Uniformed officers for residential, commercial and industrial sites." },
-              { img: motoImg, t: "Mobile Patrol", d: "GPS-tracked motorcycle and vehicle patrols across every zone." },
-              { img: k9Img, t: "K9 Dog Unit", d: "Trained detection and deterrence dogs with certified handlers." },
-              { img: controlImg, t: "CCTV & Monitoring", d: "Installation, remote monitoring and rapid alarm response." },
-              { img: heroImg, t: "VIP Protection", d: "Discreet close-protection for executives, dignitaries and families." },
+              { img: motoAsset.url, t: "Mobile Patrol", d: "GPS-tracked motorcycle and vehicle patrols across every zone." },
+              { img: k9Asset.url, t: "K9 Dog Unit", d: "Trained detection and deterrence dogs with certified handlers." },
+              { img: cctvAsset.url, t: "CCTV & Monitoring", d: "Installation, remote monitoring and rapid alarm response." },
+              { img: responseAsset.url, t: "VIP Protection", d: "Discreet close-protection for executives, dignitaries and families." },
               { img: teamImg, t: "Event Security", d: "Crowd management and access control for events of any scale." },
             ].map((s) => (
               <Link key={s.t} to="/services" className="group relative overflow-hidden rounded-xl aspect-[4/3]">
