@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, SectionHeader } from "../components/site/Section";
 import { Target, Eye, Award, Shield, Users, Zap, Star, Heart, Lightbulb, Handshake } from "lucide-react";
-import teamImg from "../assets/team.jpg";
-import officerImg from "../assets/officer.jpg";
+import teamAsset from "../assets/guard-parade.jpg.asset.json";
+import officerAsset from "../assets/parade-salute.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -30,7 +30,7 @@ function About() {
 
       <section className="py-20">
         <div className="container-x grid gap-12 lg:grid-cols-2 items-center">
-          <img src={teamImg} alt="Company team" width={1600} height={900} loading="lazy" className="rounded-2xl shadow-xl object-cover w-full" />
+          <img src={teamAsset.url} alt="Gratom Babz officers on parade" width={1600} height={900} loading="lazy" className="rounded-2xl shadow-xl object-cover w-full" />
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gold mb-3">
               <span className="h-px w-8 bg-gold" /> Company Profile
@@ -79,7 +79,7 @@ function About() {
 
       <section className="py-20 bg-navy text-navy-foreground">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr] items-center">
-          <img src={officerImg} alt="Security officer" loading="lazy" width={1200} height={1400} className="rounded-2xl shadow-2xl object-cover w-full" />
+          <img src={officerAsset.url} alt="Gratom Babz supervisor saluting at a parade" loading="lazy" width={1200} height={1400} className="rounded-2xl shadow-2xl object-cover w-full" />
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gold mb-3">
               <span className="h-px w-8 bg-gold" /> Management Message
