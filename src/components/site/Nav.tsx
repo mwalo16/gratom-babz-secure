@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone, ShieldCheck } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import logo from "../../assets/gbs-logo.png.asset.json";
 
 const links = [
   { to: "/", label: "Home" },
@@ -28,10 +29,10 @@ export function Nav() {
       <div className="hidden md:block bg-navy text-navy-foreground text-xs">
         <div className="container-x flex items-center justify-between py-2">
           <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5"><Phone className="h-3 w-3 text-gold" /> 24/7 Control Room: 0729 337 005</span>
+            <span className="inline-flex items-center gap-1.5"><Phone className="h-3 w-3 text-gold" /> 24/7 Control Room: 0729 337 005 · Head Office: 020 234 1729</span>
             <span className="opacity-70">gtbabzservices@gmail.com</span>
           </div>
-          <span className="text-gold font-medium">Your Security, Our Priority</span>
+          <span className="text-gold font-medium">...be assured of the BEST!</span>
         </div>
       </div>
       <header
@@ -41,9 +42,7 @@ export function Nav() {
       >
         <div className="container-x flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="h-10 w-10 rounded-md gradient-navy flex items-center justify-center shadow-md">
-              <ShieldCheck className="h-6 w-6 text-gold" />
-            </div>
+            <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-11 w-auto object-contain" />
             <div className="leading-tight">
               <div className="font-display font-bold text-navy text-base sm:text-lg">Gratom Babz</div>
               <div className="text-[10px] sm:text-[11px] text-muted-foreground tracking-wider uppercase">Security Services Ltd</div>
