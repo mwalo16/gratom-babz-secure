@@ -77,7 +77,7 @@ function Home() {
     <>
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        <img src={heroAsset.url} alt="Gratom Babz patrol vehicle and motorcycle unit at dusk" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={heroAsset.url} alt="Gratom Babz branded patrol vehicles at a client site" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/40" />
         <div className="container-x relative py-20 md:py-28 text-navy-foreground">
           <div className="max-w-3xl animate-fade-up">
@@ -135,7 +135,7 @@ function Home() {
       <section className="py-20 md:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-2 items-center">
           <div className="relative">
-            <img src={teamImg} alt="Gratom Babz security team in formation" loading="lazy" width={1600} height={900} className="rounded-2xl shadow-xl w-full h-auto object-cover" />
+            <img src={responseAsset.url} alt="Gratom Babz response unit officers on parade" loading="lazy" width={1600} height={900} className="rounded-2xl shadow-xl w-full h-auto object-cover" />
             <div className="absolute -bottom-6 -right-4 md:-right-8 rounded-xl bg-navy text-navy-foreground px-6 py-4 shadow-xl border border-gold/30">
               <div className="text-3xl font-bold text-gold">15+</div>
               <div className="text-xs uppercase tracking-wider">Years of Excellence</div>
@@ -177,7 +177,7 @@ function Home() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { img: teamImg, t: "Manned Guarding", d: "Uniformed officers for residential, commercial and industrial sites." },
+              { img: responseAsset.url, t: "Manned Guarding", d: "Uniformed officers for residential, commercial and industrial sites." },
               { img: motoAsset.url, t: "Mobile Patrol", d: "GPS-tracked motorcycle and vehicle patrols across every zone." },
               { img: k9Asset.url, t: "K9 Dog Unit", d: "Trained detection and deterrence dogs with certified handlers." },
               { img: cctvAsset.url, t: "CCTV & Monitoring", d: "Installation, remote monitoring and rapid alarm response." },
