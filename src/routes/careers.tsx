@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
