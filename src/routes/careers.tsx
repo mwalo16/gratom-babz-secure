@@ -103,7 +103,7 @@ function Careers() {
             </ul>
           </div>
           <form
-            onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+            onSubmit={onApply}
             className="rounded-2xl bg-muted/40 border p-6 md:p-8 space-y-4"
           >
             <h3 className="text-xl font-bold text-navy">Online Application</h3>
@@ -119,17 +119,18 @@ function Careers() {
                 </div>
                 <div>
                   <label className="text-sm font-medium">Cover Note</label>
-                  <textarea rows={4} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
+                  <textarea name="cover_note" rows={4} maxLength={3000} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
                 </div>
-                <label className="flex items-center gap-3 rounded-md border-2 border-dashed p-4 cursor-pointer hover:border-navy transition-colors">
+                <div className="flex items-center gap-3 rounded-md border-2 border-dashed p-4 text-sm text-muted-foreground">
                   <Upload className="h-5 w-5 text-gold" />
-                  <span className="text-sm">Upload CV (PDF, DOC)</span>
-                  <input type="file" className="hidden" />
-                </label>
-                <button className="w-full rounded-md gradient-navy text-white font-semibold py-3">Submit Application</button>
+                  <span>After submitting, email your CV to gtbabzservices@gmail.com</span>
+                </div>
+                {error && <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+                <button disabled={busy} className="w-full rounded-md gradient-navy text-white font-semibold py-3 disabled:opacity-60">{busy ? "Submitting…" : "Submit Application"}</button>
               </>
             )}
           </form>
+
         </div>
       </section>
     </>
