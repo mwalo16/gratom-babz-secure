@@ -20,6 +20,26 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setBusy(true);
+    setError(null);
+    const { error: err } = await supabase.from("contact_messages").insert({
+      name: String(fd.get("name") ?? "").slice(0, 120),
+      phone: String(fd.get("phone") ?? "").slice(0, 40),
+      email: String(fd.get("email") ?? "").slice(0, 200),
+      service: String(fd.get("service") ?? "").slice(0, 120),
+      message: String(fd.get("message") ?? "").slice(0, 3000),
+    });
+    setBusy(false);
+    if (err) setError("Sorry, we couldn't send your message. Please call us instead.");
+    else setSent(true);
+  }
+
   return (
     <>
       <PageHero title="Get in Touch" subtitle="Available around the clock. Whether you're planning security for a new site or need emergency assistance, we're one call away." />
