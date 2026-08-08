@@ -128,11 +128,12 @@ function Contact() {
   );
 }
 
-function F({ label, type = "text", required = false }: { label: string; type?: string; required?: boolean }) {
+function F({ label, name, type = "text", required = false }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div>
       <label className="text-sm font-medium">{label}</label>
-      <input type={type} required={required} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
+      <input name={name} type={type} required={required} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
     </div>
   );
 }
+
