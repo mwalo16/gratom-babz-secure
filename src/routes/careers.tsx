@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
@@ -28,6 +29,27 @@ const vacancies = [
 
 function Careers() {
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onApply(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setBusy(true);
+    setError(null);
+    const { error: err } = await supabase.from("job_applications").insert({
+      name: String(fd.get("name") ?? "").slice(0, 120),
+      phone: String(fd.get("phone") ?? "").slice(0, 40),
+      email: String(fd.get("email") ?? "").slice(0, 200),
+      position: String(fd.get("position") ?? "").slice(0, 120),
+      cover_note: String(fd.get("cover_note") ?? "").slice(0, 3000),
+    });
+    setBusy(false);
+    if (err) setError("Sorry, we couldn't submit your application. Please try again later.");
+    else setSubmitted(true);
+  }
+
+
   return (
     <>
       <PageHero title="Join Our Team" subtitle="Build a career you're proud of. We're hiring disciplined, motivated professionals across Kenya." />
@@ -81,7 +103,7 @@ function Careers() {
             </ul>
           </div>
           <form
-            onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+            onSubmit={onApply}
             className="rounded-2xl bg-muted/40 border p-6 md:p-8 space-y-4"
           >
             <h3 className="text-xl font-bold text-navy">Online Application</h3>
@@ -97,17 +119,18 @@ function Careers() {
                 </div>
                 <div>
                   <label className="text-sm font-medium">Cover Note</label>
-                  <textarea rows={4} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
+                  <textarea name="cover_note" rows={4} maxLength={3000} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
                 </div>
-                <label className="flex items-center gap-3 rounded-md border-2 border-dashed p-4 cursor-pointer hover:border-navy transition-colors">
+                <div className="flex items-center gap-3 rounded-md border-2 border-dashed p-4 text-sm text-muted-foreground">
                   <Upload className="h-5 w-5 text-gold" />
-                  <span className="text-sm">Upload CV (PDF, DOC)</span>
-                  <input type="file" className="hidden" />
-                </label>
-                <button className="w-full rounded-md gradient-navy text-white font-semibold py-3">Submit Application</button>
+                  <span>After submitting, email your CV to gtbabzservices@gmail.com</span>
+                </div>
+                {error && <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+                <button disabled={busy} className="w-full rounded-md gradient-navy text-white font-semibold py-3 disabled:opacity-60">{busy ? "Submitting…" : "Submit Application"}</button>
               </>
             )}
           </form>
+
         </div>
       </section>
     </>

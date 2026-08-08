@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +20,26 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setBusy(true);
+    setError(null);
+    const { error: err } = await supabase.from("contact_messages").insert({
+      name: String(fd.get("name") ?? "").slice(0, 120),
+      phone: String(fd.get("phone") ?? "").slice(0, 40),
+      email: String(fd.get("email") ?? "").slice(0, 200),
+      service: String(fd.get("service") ?? "").slice(0, 120),
+      message: String(fd.get("message") ?? "").slice(0, 3000),
+    });
+    setBusy(false);
+    if (err) setError("Sorry, we couldn't send your message. Please call us instead.");
+    else setSent(true);
+  }
+
   return (
     <>
       <PageHero title="Get in Touch" subtitle="Available around the clock. Whether you're planning security for a new site or need emergency assistance, we're one call away." />
@@ -51,25 +72,27 @@ function Contact() {
           <div>
             <h2 className="text-3xl font-bold text-navy">Send us a message</h2>
             <p className="mt-2 text-muted-foreground">We respond to all quote requests within 24 hours.</p>
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="mt-6 space-y-4 rounded-2xl bg-background border p-6 md:p-8">
+            <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-2xl bg-background border p-6 md:p-8">
               {sent ? (
                 <div className="rounded-md bg-gold/20 border border-gold p-4 text-sm text-navy">Thank you — we've received your message and will be in touch shortly.</div>
               ) : (
                 <>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <F label="Full Name" required />
-                    <F label="Phone" type="tel" required />
-                    <F label="Email" type="email" required />
-                    <F label="Service Needed" />
+                    <F label="Full Name" name="name" required />
+                    <F label="Phone" name="phone" type="tel" required />
+                    <F label="Email" name="email" type="email" required />
+                    <F label="Service Needed" name="service" />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Message</label>
-                    <textarea rows={5} required className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
+                    <textarea name="message" rows={5} required maxLength={3000} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
                   </div>
-                  <button className="w-full rounded-md gradient-navy text-white font-semibold py-3">Send Message</button>
+                  {error && <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+                  <button disabled={busy} className="w-full rounded-md gradient-navy text-white font-semibold py-3 disabled:opacity-60">{busy ? "Sending…" : "Send Message"}</button>
                 </>
               )}
             </form>
+
           </div>
           <div className="space-y-6">
             <div className="rounded-2xl overflow-hidden border shadow-md">
@@ -105,11 +128,12 @@ function Contact() {
   );
 }
 
-function F({ label, type = "text", required = false }: { label: string; type?: string; required?: boolean }) {
+function F({ label, name, type = "text", required = false }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div>
       <label className="text-sm font-medium">{label}</label>
-      <input type={type} required={required} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
+      <input name={name} type={type} required={required} className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:border-navy" />
     </div>
   );
 }
+

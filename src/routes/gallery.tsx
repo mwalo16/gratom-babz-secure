@@ -1,24 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { useState } from "react";
-import fleetBranded from "../assets/fleet-branded.jpg.asset.json";
-import fleetCars from "../assets/fleet-cars.jpg.asset.json";
-import motoRiders from "../assets/moto-riders.jpg.asset.json";
-import motoBranded from "../assets/moto-branded.jpg.asset.json";
-import responseUnit from "../assets/response-unit.jpg.asset.json";
-import k9Officer from "../assets/k9-officer.jpg.asset.json";
-import k9Pair from "../assets/k9-pair.jpg.asset.json";
-import k9Training from "../assets/k9-training.jpg.asset.json";
-import cctvInstall from "../assets/cctv-install.jpg.asset.json";
-import alarmSystem from "../assets/alarm-system.jpg.asset.json";
-import paradeSalute from "../assets/parade-salute.jpg.asset.json";
-import k9BiteTraining from "../assets/k9-bite-training.jpg.asset.json";
-import patrolTruckBlue from "../assets/patrol-truck-blue.jpg.asset.json";
-import guardParade from "../assets/guard-parade.jpg.asset.json";
-import alarmKit from "../assets/alarm-kit.jpg.asset.json";
-import dogUnitVehicle from "../assets/dog-unit-vehicle.jpg.asset.json";
-import cctvMounting from "../assets/cctv-mounting.jpg.asset.json";
-import razorWire from "../assets/razor-wire.jpg.asset.json";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -34,41 +18,32 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-const items = [
-  { src: fleetBranded.url, cat: "Patrol Vehicles" },
-  { src: fleetCars.url, cat: "Patrol Vehicles" },
-  { src: patrolTruckBlue.url, cat: "Patrol Vehicles" },
-  { src: dogUnitVehicle.url, cat: "Patrol Vehicles" },
-  { src: responseUnit.url, cat: "Response Unit" },
-  { src: motoRiders.url, cat: "Motorcycle Patrol" },
-  { src: motoBranded.url, cat: "Motorcycle Patrol" },
-  { src: k9Officer.url, cat: "K9 Unit" },
-  { src: k9Pair.url, cat: "K9 Unit" },
-  { src: k9Training.url, cat: "K9 Unit" },
-  { src: k9BiteTraining.url, cat: "K9 Unit" },
-  { src: cctvInstall.url, cat: "CCTV Installation" },
-  { src: cctvMounting.url, cat: "CCTV Installation" },
-  { src: alarmSystem.url, cat: "Alarm Systems" },
-  { src: alarmKit.url, cat: "Alarm Systems" },
-  { src: paradeSalute.url, cat: "Security Officers" },
-  { src: guardParade.url, cat: "Security Officers" },
-  { src: razorWire.url, cat: "Electric Fencing" },
-];
-
-const cats = ["All","Patrol Vehicles","Motorcycle Patrol","Response Unit","Security Officers","K9 Unit","CCTV Installation","Alarm Systems","Electric Fencing"];
-
-
 function Gallery() {
   const [active, setActive] = useState("All");
   const [preview, setPreview] = useState<string | null>(null);
-  const filtered = active === "All" ? items : items.filter(i => i.cat === active);
+
+  const { data: items = [], isLoading } = useQuery({
+    queryKey: ["gallery"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("gallery_items")
+        .select("id, image_url, category, caption")
+        .order("sort_order");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const cats = ["All", ...Array.from(new Set(items.map((i) => i.category)))];
+  const filtered = active === "All" ? items : items.filter((i) => i.category === active);
+
   return (
     <>
       <PageHero title="Our Gallery" subtitle="A look inside our operations — the people, vehicles and technology keeping Kenya safe." />
       <section className="py-16">
         <div className="container-x">
           <div className="flex flex-wrap gap-2 justify-center mb-10">
-            {cats.map(c => (
+            {cats.map((c) => (
               <button
                 key={c}
                 onClick={() => setActive(c)}
@@ -78,20 +53,25 @@ function Gallery() {
               </button>
             ))}
           </div>
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
-            {filtered.map((it, i) => (
-              <button
-                key={i}
-                onClick={() => setPreview(it.src)}
-                className="mb-4 block w-full break-inside-avoid rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group relative"
-              >
-                <img src={it.src} alt={it.cat} loading="lazy" className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/30 transition-colors flex items-end p-4">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-semibold bg-navy/80 px-3 py-1.5 rounded-full">{it.cat}</span>
-                </div>
-              </button>
-            ))}
-          </div>
+
+          {isLoading ? (
+            <p className="text-center text-sm text-muted-foreground py-12">Loading photos…</p>
+          ) : (
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
+              {filtered.map((it) => (
+                <button
+                  key={it.id}
+                  onClick={() => setPreview(it.image_url)}
+                  className="mb-4 block w-full break-inside-avoid rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group relative"
+                >
+                  <img src={it.image_url} alt={it.caption ?? it.category} loading="lazy" className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/30 transition-colors flex items-end p-4">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-semibold bg-navy/80 px-3 py-1.5 rounded-full">{it.caption ?? it.category}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
       {preview && (

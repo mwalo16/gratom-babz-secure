@@ -29,8 +29,8 @@ export function Footer() {
         <div>
           <h4 className="font-semibold text-gold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm text-white/80">
-            {["about","services","gallery","branches","careers","contact"].map((s) => (
-              <li key={s}><Link to={`/${s}`} className="hover:text-gold capitalize">{s}</Link></li>
+            {(["/about","/services","/gallery","/branches","/careers","/contact"] as const).map((s) => (
+              <li key={s}><Link to={s} className="hover:text-gold capitalize">{s.slice(1)}</Link></li>
             ))}
           </ul>
         </div>
