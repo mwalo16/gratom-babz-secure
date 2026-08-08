@@ -29,6 +29,27 @@ const vacancies = [
 
 function Careers() {
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onApply(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setBusy(true);
+    setError(null);
+    const { error: err } = await supabase.from("job_applications").insert({
+      name: String(fd.get("name") ?? "").slice(0, 120),
+      phone: String(fd.get("phone") ?? "").slice(0, 40),
+      email: String(fd.get("email") ?? "").slice(0, 200),
+      position: String(fd.get("position") ?? "").slice(0, 120),
+      cover_note: String(fd.get("cover_note") ?? "").slice(0, 3000),
+    });
+    setBusy(false);
+    if (err) setError("Sorry, we couldn't submit your application. Please try again later.");
+    else setSubmitted(true);
+  }
+
+
   return (
     <>
       <PageHero title="Join Our Team" subtitle="Build a career you're proud of. We're hiring disciplined, motivated professionals across Kenya." />
