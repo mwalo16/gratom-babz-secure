@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Shield, Users, Radio, MapPin, Clock, Zap, ArrowRight, CheckCircle2, Award, HeartHandshake, Star } from "lucide-react";
-import heroAsset from "../assets/fleet-branded.jpg.asset.json";
+import heroAsset from "../assets/fleet-cars.jpg.asset.json";
 import k9Asset from "../assets/k9-officer.jpg.asset.json";
 import motoAsset from "../assets/moto-riders.jpg.asset.json";
 import cctvAsset from "../assets/cctv-install.jpg.asset.json";
