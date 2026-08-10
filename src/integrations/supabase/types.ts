@@ -147,6 +147,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          details: string | null
           icon: string
           id: string
           published: boolean
@@ -156,6 +157,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string
+          details?: string | null
           icon?: string
           id?: string
           published?: boolean
@@ -165,6 +167,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          details?: string | null
           icon?: string
           id?: string
           published?: boolean

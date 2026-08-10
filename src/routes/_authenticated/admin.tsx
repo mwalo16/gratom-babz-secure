@@ -249,7 +249,8 @@ function Applications() {
 /* ---------------- Services ---------------- */
 function Services() {
   const qc = useQueryClient();
-  const [form, setForm] = useState({ title: "", description: "", icon: "Shield" });
+  const [form, setForm] = useState({ title: "", description: "", details: "", icon: "Shield" });
+  const [editing, setEditing] = useState<string | null>(null);
   const { data = [], isLoading } = useQuery({
     queryKey: ["admin-services"],
     queryFn: async () => {
@@ -267,7 +268,16 @@ function Services() {
       const { error } = await supabase.from("services").insert({ ...form, sort_order: next });
       if (error) throw error;
     },
-    onSuccess: () => { toast.success("Service added"); setForm({ title: "", description: "", icon: "Shield" }); invalidate(); },
+    onSuccess: () => { toast.success("Service added"); setForm({ title: "", description: "", details: "", icon: "Shield" }); invalidate(); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const update = useMutation({
+    mutationFn: async ({ id, values }: { id: string; values: Partial<typeof form> }) => {
+      const { error } = await supabase.from("services").update(values).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Service updated"); setEditing(null); invalidate(); },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -293,43 +303,99 @@ function Services() {
     <Panel title="Services">
       <form
         onSubmit={(e) => { e.preventDefault(); add.mutate(); }}
-        className="grid gap-3 sm:grid-cols-[1fr_1.4fr_auto] items-end rounded-xl bg-muted/40 border p-4 mb-5"
+        className="grid gap-3 rounded-xl bg-muted/40 border p-4 mb-5"
       >
-        <div>
-          <label className="text-xs font-medium">Title</label>
-          <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label className="text-xs font-medium">Title</label>
+            <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label className="text-xs font-medium">Icon name</label>
+            <input value={form.icon} onChange={(e) => setForm({ ...form, icon: e.target.value })} placeholder="Shield" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+          </div>
         </div>
         <div>
-          <label className="text-xs font-medium">Description</label>
+          <label className="text-xs font-medium">Short description</label>
           <input required value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
         </div>
-        <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4 py-2.5 inline-flex items-center gap-1.5">
-          <Plus className="h-4 w-4" /> Add
-        </button>
+        <div>
+          <label className="text-xs font-medium">Detailed description</label>
+          <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={3} placeholder="Longer description shown when visitors click Learn more…" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        </div>
+        <div className="flex justify-end">
+          <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4 py-2.5 inline-flex items-center gap-1.5">
+            <Plus className="h-4 w-4" /> Add service
+          </button>
+        </div>
       </form>
 
       {isLoading ? <Empty text="Loading…" /> : (
         <div className="grid gap-3 md:grid-cols-2">
           {data.map((s) => (
             <div key={s.id} className="rounded-xl border p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="font-semibold text-navy">{s.title}</div>
-                  <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
-                </div>
-                <button onClick={() => remove.mutate(s.id)} className="rounded-md border px-2 py-1.5 text-xs hover:border-destructive hover:text-destructive">
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              </div>
-              <label className="mt-3 flex items-center gap-2 text-xs">
-                <input type="checkbox" checked={s.published} onChange={(e) => togglePublished.mutate({ id: s.id, published: e.target.checked })} />
-                Visible on website
-              </label>
+              {editing === s.id ? (
+                <EditServiceForm service={s} onSave={(values) => update.mutate({ id: s.id, values })} onCancel={() => setEditing(null)} />
+              ) : (
+                <>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="font-semibold text-navy">{s.title}</div>
+                      <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => setEditing(s.id)} className="rounded-md border px-2 py-1.5 text-xs hover:border-navy">Edit</button>
+                      <button onClick={() => remove.mutate(s.id)} className="rounded-md border px-2 py-1.5 text-xs hover:border-destructive hover:text-destructive">
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                  <label className="mt-3 flex items-center gap-2 text-xs">
+                    <input type="checkbox" checked={s.published} onChange={(e) => togglePublished.mutate({ id: s.id, published: e.target.checked })} />
+                    Visible on website
+                  </label>
+                </>
+              )}
             </div>
           ))}
         </div>
       )}
     </Panel>
+  );
+}
+
+function EditServiceForm({ service, onSave, onCancel }: { service: any; onSave: (values: { title: string; description: string; details: string; icon: string }) => void; onCancel: () => void }) {
+  const [values, setValues] = useState({
+    title: service.title,
+    description: service.description,
+    details: service.details ?? "",
+    icon: service.icon,
+  });
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); onSave(values); }} className="space-y-3">
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div>
+          <label className="text-xs font-medium">Title</label>
+          <input required value={values.title} onChange={(e) => setValues({ ...values, title: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label className="text-xs font-medium">Icon name</label>
+          <input value={values.icon} onChange={(e) => setValues({ ...values, icon: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        </div>
+      </div>
+      <div>
+        <label className="text-xs font-medium">Short description</label>
+        <input required value={values.description} onChange={(e) => setValues({ ...values, description: e.target.value })} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+      </div>
+      <div>
+        <label className="text-xs font-medium">Detailed description</label>
+        <textarea value={values.details} onChange={(e) => setValues({ ...values, details: e.target.value })} rows={4} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+      </div>
+      <div className="flex justify-end gap-2">
+        <button type="button" onClick={onCancel} className="rounded-md border px-3 py-1.5 text-xs">Cancel</button>
+        <button className="rounded-md gradient-navy text-white px-3 py-1.5 text-xs font-semibold">Save</button>
+      </div>
+    </form>
   );
 }
 
