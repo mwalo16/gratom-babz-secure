@@ -25,17 +25,26 @@ const ICONS: Record<string, typeof Shield> = {
   KeyRound, Fingerprint, Zap, Dog, ClipboardList, ShieldAlert, Car,
 };
 
+type Service = {
+  id: string;
+  title: string;
+  description: string;
+  details: string | null;
+  icon: string;
+};
+
 function Services() {
+  const [selected, setSelected] = useState<Service | null>(null);
   const { data: services = [], isLoading } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("services")
-        .select("id, title, description, icon")
+        .select("id, title, description, details, icon")
         .eq("published", true)
         .order("sort_order");
       if (error) throw error;
-      return data;
+      return data as Service[];
     },
   });
 
@@ -57,9 +66,12 @@ function Services() {
                     </div>
                     <h3 className="text-lg font-semibold text-navy">{s.title}</h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.description}</p>
-                    <Link to="/contact" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy hover:text-gold transition-colors">
+                    <button
+                      onClick={() => setSelected(s)}
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy hover:text-gold transition-colors"
+                    >
                       Learn more <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
+                    </button>
                   </div>
                 );
               })}
@@ -67,6 +79,47 @@ function Services() {
           )}
         </div>
       </section>
+
+      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          {selected && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-3">
+                  {(() => {
+                    const Icon = ICONS[selected.icon] ?? Shield;
+                    return (
+                      <div className="h-11 w-11 rounded-lg gradient-navy flex items-center justify-center text-gold shrink-0">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                    );
+                  })()}
+                  <DialogTitle className="text-xl text-navy">{selected.title}</DialogTitle>
+                </div>
+                <DialogDescription className="text-sm text-muted-foreground pt-1">{selected.description}</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-5">
+                <p className="text-sm leading-relaxed text-foreground/90">
+                  {selected.details || "Detailed description coming soon. Contact us for more information about this service."}
+                </p>
+                <div className="rounded-xl bg-muted/40 border p-4">
+                  <h4 className="text-sm font-semibold text-navy mb-2">Interested in this service?</h4>
+                  <p className="text-sm text-muted-foreground mb-3">Speak with our team for a tailored quote or site assessment.</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link to="/contact" onClick={() => setSelected(null)} className="inline-flex items-center gap-2 rounded-md gradient-gold text-navy font-semibold px-4 py-2.5 text-sm">
+                      <Phone className="h-4 w-4" /> Get in touch
+                    </Link>
+                    <a href="tel:0729337005" className="inline-flex items-center gap-2 rounded-md border px-4 py-2.5 text-sm font-medium hover:border-navy transition-colors">
+                      <Phone className="h-4 w-4" /> Call 0729 337 005
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <section className="py-16 bg-navy text-navy-foreground">
         <div className="container-x text-center">
           <h2 className="text-3xl md:text-4xl font-bold">Need a customized security solution?</h2>
