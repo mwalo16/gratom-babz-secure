@@ -2,7 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "../components/site/Section";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Shield, Home, Building2, Factory, UserCheck, Users, Bike, Bell, Camera, Video, KeyRound, Fingerprint, Zap, Dog, ClipboardList, ShieldAlert, Car, ArrowRight } from "lucide-react";
+import { Shield, Home, Building2, Factory, UserCheck, Users, Bike, Bell, Camera, Video, KeyRound, Fingerprint, Zap, Dog, ClipboardList, ShieldAlert, Car, ArrowRight, Phone } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from "react";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
