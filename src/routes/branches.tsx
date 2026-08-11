@@ -3,20 +3,6 @@ import { PageHero } from "../components/site/Section";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/branches")({
-  head: () => ({
-    meta: [
-      { title: "Our Branches — Gratom Babz Security" },
-      { name: "description", content: "Head office on Kiambu Rd plus branches in Kiambu, Kikuyu/Wangige, Nairobi, Limuru, Thika and Mombasa/Malindi." },
-      { property: "og:title", content: "Branches — Gratom Babz Security" },
-      { property: "og:description", content: "Where we operate across Kenya." },
-      { property: "og:url", content: "/branches" },
-    ],
-    links: [{ rel: "canonical", href: "/branches" }],
-  }),
-  component: Branches,
-});
-
 // approximate coordinates as percentages within a stylized Kenya bounding box
 const branches = [
   { name: "Head Office", location: "Kiambu Rd, off Kugeria North", region: "Kiambu County", postal: "P.O. Box 1800 – 00900 Kiambu", phone: "020 234 1729", alt: "0726 459 010 · 0729 337 005 · 0716 383 502" },
@@ -27,6 +13,39 @@ const branches = [
   { name: "Thika", location: "Savannah Building", region: "Kiambu County", phone: "0736 859 500" },
   { name: "Mombasa / Malindi", location: "Savannah Building", region: "Coast Region", phone: "0725 478 460" },
 ];
+
+export const Route = createFileRoute("/branches")({
+  head: () => ({
+    meta: [
+      { title: "Our Branches — Gratom Babz Security" },
+      { name: "description", content: "Head office on Kiambu Rd plus branches in Kiambu, Kikuyu/Wangige, Nairobi, Limuru, Thika and Mombasa/Malindi." },
+      { property: "og:title", content: "Branches — Gratom Babz Security" },
+      { property: "og:description", content: "Where we operate across Kenya." },
+      { property: "og:url", content: "/branches" },
+    ],
+    links: [{ rel: "canonical", href: "/branches" }],
+    scripts: branches.map((b) => ({
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SecurityService",
+        name: `Gratom Babz Security Services Ltd — ${b.name}`,
+        parentOrganization: { "@type": "Organization", name: "Gratom Babz Security Services Ltd" },
+        telephone: b.phone,
+        areaServed: b.region,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: b.location,
+          addressLocality: b.name === "Head Office" ? "Kiambu" : b.name,
+          addressRegion: b.region,
+          addressCountry: "KE",
+        },
+      }),
+    })),
+  }),
+  component: Branches,
+});
+
 
 function Branches() {
   const [active, setActive] = useState<string>("Head Office");
