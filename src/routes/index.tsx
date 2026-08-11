@@ -12,7 +12,7 @@ import { SectionHeader } from "../components/site/Section";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Gratom Babz Security Services Ltd — Trusted Security in Kenya" },
+      { title: "Gratom Babz Security Services — Security Company Kenya" },
       { name: "description", content: "Licensed Kenyan security company offering manned guarding, CCTV, K9, mobile patrol and 24/7 alarm response nationwide." },
       { property: "og:title", content: "Gratom Babz Security Services Ltd" },
       { property: "og:description", content: "Professional 24/7 security solutions across Kenya. Your Security, Our Priority." },

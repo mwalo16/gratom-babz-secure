@@ -1,0 +1,15 @@
+# Gratom Babz Security Services Ltd
+
+> Licensed Kenyan private security company providing manned guarding, K9 units, CCTV, electric fencing, mobile patrols and 24/7 alarm response nationwide.
+
+Head office on Kiambu Rd (off Kugeria North), Kiambu, with branches in Kiambu, Kikuyu/Wangige, Nairobi, Limuru, Thika and Mombasa/Malindi. 24-hour control room: +254 729 337 005.
+
+## Pages
+
+- [Home](/): Overview of Gratom Babz Security Services and its nationwide security solutions.
+- [About](/about): Company profile, vision, mission and core values.
+- [Services](/services): Full list of services — guarding, K9, alarms, CCTV, fencing, fleet management.
+- [Gallery](/gallery): Photos of officers, K9 units, patrol fleet and installations.
+- [Branches](/branches): Head office and regional branch locations with contact numbers.
+- [Careers](/careers): Current vacancies and online job application.
+- [Contact](/contact): Phone lines, email, address and 24/7 emergency hotline.

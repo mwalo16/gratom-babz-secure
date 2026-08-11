@@ -4,6 +4,15 @@ import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-reac
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+const vacancies = [
+  { title: "Security Officer", loc: "Kiambu, Nakuru, Nyeri", type: "Full-time" },
+  { title: "K9 Handler", loc: "Nairobi", type: "Full-time" },
+  { title: "Control Room Operator", loc: "Head Office", type: "Shift" },
+  { title: "Mobile Patrol Officer", loc: "Central Region", type: "Full-time" },
+  { title: "CCTV Technician", loc: "Nairobi", type: "Full-time" },
+  { title: "Operations Supervisor", loc: "Murang'a", type: "Full-time" },
+];
+
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
@@ -14,18 +23,34 @@ export const Route = createFileRoute("/careers")({
       { property: "og:url", content: "/careers" },
     ],
     links: [{ rel: "canonical", href: "/careers" }],
+    scripts: vacancies.map((v) => ({
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        title: v.title,
+        description: `${v.type} ${v.title} position with Gratom Babz Security Services Ltd in ${v.loc}, Kenya. Full training provided; disciplined, vetted professionals encouraged to apply.`,
+        employmentType: v.type === "Shift" ? "FULL_TIME" : "FULL_TIME",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: "Gratom Babz Security Services Ltd",
+          sameAs: "/",
+        },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: v.loc,
+            addressCountry: "KE",
+          },
+        },
+        directApply: true,
+      }),
+    })),
   }),
   component: Careers,
 });
 
-const vacancies = [
-  { title: "Security Officer", loc: "Kiambu, Nakuru, Nyeri", type: "Full-time" },
-  { title: "K9 Handler", loc: "Nairobi", type: "Full-time" },
-  { title: "Control Room Operator", loc: "Head Office", type: "Shift" },
-  { title: "Mobile Patrol Officer", loc: "Central Region", type: "Full-time" },
-  { title: "CCTV Technician", loc: "Nairobi", type: "Full-time" },
-  { title: "Operations Supervisor", loc: "Murang'a", type: "Full-time" },
-];
 
 function Careers() {
   const [submitted, setSubmitted] = useState(false);
