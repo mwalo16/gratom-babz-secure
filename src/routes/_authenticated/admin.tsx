@@ -484,6 +484,22 @@ function Admins() {
   const qc = useQueryClient();
   const [email, setEmail] = useState("");
 
+  const { data: isSuperAdmin = false } = useQuery({
+    queryKey: ["is-super-admin"],
+    queryFn: async () => {
+      const { data: userData } = await supabase.auth.getUser();
+      if (!userData.user) return false;
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userData.user.id)
+        .eq("role", "super_admin")
+        .maybeSingle();
+      if (error) throw error;
+      return !!data;
+    },
+  });
+
   const { data = [], isLoading } = useQuery({
     queryKey: ["admin_invites"],
     queryFn: async () => {
@@ -492,6 +508,7 @@ function Admins() {
       return data;
     },
   });
+
 
   const { data: admins = [] } = useQuery({
     queryKey: ["admin_profiles"],
