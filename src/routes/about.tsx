@@ -51,12 +51,12 @@ function About() {
           <div className="rounded-2xl bg-background p-8 border shadow-sm">
             <Eye className="h-10 w-10 text-gold mb-4" />
             <h3 className="text-xl font-bold text-navy">Our Vision</h3>
-            <p className="mt-3 text-muted-foreground leading-relaxed">To become Kenya's most trusted provider of professional security and safety solutions.</p>
+            <p className="mt-3 text-muted-foreground leading-relaxed">To be the leading security provider in a wide range of security services to all clients in major towns in Kenya and the East African Region.</p>
           </div>
           <div className="rounded-2xl bg-background p-8 border shadow-sm">
             <Target className="h-10 w-10 text-gold mb-4" />
             <h3 className="text-xl font-bold text-navy">Our Mission</h3>
-            <p className="mt-3 text-muted-foreground leading-relaxed">To deliver world-class security services through highly trained personnel, modern technology and exceptional customer service.</p>
+            <p className="mt-3 text-muted-foreground leading-relaxed">To provide security services that meet utmost international standards and satisfies our stakeholders in their exacting needs in products, reliability, range, accountability and responsibility through commitment to intergrity and excellence by a highly motivated,skilled and professional team.</p>
           </div>
         </div>
       </section>
