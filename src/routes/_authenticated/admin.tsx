@@ -544,23 +544,32 @@ function Admins() {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Panel title="Invite an admin">
-        <form onSubmit={(e) => { e.preventDefault(); invite.mutate(); }} className="flex gap-2">
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" className="flex-1 rounded-md border bg-background px-3 py-2 text-sm" />
-          <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4">Invite</button>
-        </form>
-        <p className="mt-2 text-xs text-muted-foreground">Invited people get admin rights automatically when they create their account on the sign-in page.</p>
+        {isSuperAdmin ? (
+          <>
+            <form onSubmit={(e) => { e.preventDefault(); invite.mutate(); }} className="flex gap-2">
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" className="flex-1 rounded-md border bg-background px-3 py-2 text-sm" />
+              <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4">Invite</button>
+            </form>
+            <p className="mt-2 text-xs text-muted-foreground">Invited people get admin rights automatically when they create their account on the sign-in page.</p>
+          </>
+        ) : (
+          <p className="text-sm text-muted-foreground">Only the super admin can invite or remove admins. Contact the account owner to request access for someone.</p>
+        )}
 
         {isLoading ? <Empty text="Loading…" /> : data.length === 0 ? <Empty text="No pending invites." /> : (
           <ul className="mt-4 space-y-2">
             {data.map((i) => (
               <li key={i.email} className="flex items-center justify-between rounded-md border px-3 py-2 text-sm">
                 {i.email}
-                <button onClick={() => revoke.mutate(i.email)} className="text-xs text-muted-foreground hover:text-destructive">Remove</button>
+                {isSuperAdmin && (
+                  <button onClick={() => revoke.mutate(i.email)} className="text-xs text-muted-foreground hover:text-destructive">Remove</button>
+                )}
               </li>
             ))}
           </ul>
         )}
       </Panel>
+
 
       <Panel title="Current admins">
         {admins.length === 0 ? <Empty text="No admins found." /> : (
