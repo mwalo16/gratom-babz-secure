@@ -4,33 +4,49 @@ import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-reac
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-const vacancies = [
-  { title: "Security Officer", loc: "Kiambu, Nakuru, Nyeri", type: "Full-time" },
-  { title: "K9 Handler", loc: "Nairobi", type: "Full-time" },
-  { title: "Control Room Operator", loc: "Head Office", type: "Shift" },
-  { title: "Mobile Patrol Officer", loc: "Central Region", type: "Full-time" },
-  { title: "CCTV Technician", loc: "Nairobi", type: "Full-time" },
-  { title: "Operations Supervisor", loc: "Murang'a", type: "Full-time" },
-];
+type Vacancy = { id: string; title: string; location: string; employment_type: string };
+type Requirement = { id: string; requirement: string };
+
+async function loadCareers(): Promise<{ vacancies: Vacancy[]; requirements: Requirement[] }> {
+  const [v, r] = await Promise.all([
+    supabase
+      .from("job_vacancies")
+      .select("id,title,location,employment_type")
+      .eq("published", true)
+      .order("sort_order"),
+    supabase.from("application_requirements").select("id,requirement").order("sort_order"),
+  ]);
+  return {
+    vacancies: (v.data ?? []) as Vacancy[],
+    requirements: (r.data ?? []) as Requirement[],
+  };
+}
 
 export const Route = createFileRoute("/careers")({
-  head: () => ({
+  loader: () => loadCareers(),
+  errorComponent: () => (
+    <div className="container-x py-24 text-center text-muted-foreground">Careers information is unavailable right now. Please try again shortly.</div>
+  ),
+  notFoundComponent: () => <div className="container-x py-24 text-center">Page not found.</div>,
+  head: ({ loaderData }) => ({
     meta: [
       { title: "Careers — Gratom Babz Security" },
       { name: "description", content: "Join Kenya's leading security team. Current vacancies, benefits and online application." },
       { property: "og:title", content: "Careers — Gratom Babz Security" },
       { property: "og:description", content: "Join our team." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "/careers" },
     ],
     links: [{ rel: "canonical", href: "/careers" }],
-    scripts: vacancies.map((v) => ({
+    scripts: (loaderData?.vacancies ?? []).map((v) => ({
       type: "application/ld+json",
       children: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "JobPosting",
         title: v.title,
-        description: `${v.type} ${v.title} position with Gratom Babz Security Services Ltd in ${v.loc}, Kenya. Full training provided; disciplined, vetted professionals encouraged to apply.`,
-        employmentType: v.type === "Shift" ? "FULL_TIME" : "FULL_TIME",
+        description: `${v.employment_type} ${v.title} position with Gratom Babz Security Services Ltd in ${v.location}, Kenya. Full training provided; disciplined, vetted professionals encouraged to apply.`,
+        employmentType: "FULL_TIME",
         hiringOrganization: {
           "@type": "Organization",
           name: "Gratom Babz Security Services Ltd",
@@ -40,7 +56,7 @@ export const Route = createFileRoute("/careers")({
           "@type": "Place",
           address: {
             "@type": "PostalAddress",
-            addressLocality: v.loc,
+            addressLocality: v.location,
             addressCountry: "KE",
           },
         },
@@ -53,6 +69,7 @@ export const Route = createFileRoute("/careers")({
 
 
 function Careers() {
+  const { vacancies, requirements } = Route.useLoaderData() as { vacancies: Vacancy[]; requirements: Requirement[] };
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,20 +115,32 @@ function Careers() {
       <section className="py-16 bg-muted/40">
         <div className="container-x">
           <h2 className="text-3xl font-bold text-navy mb-2">Current Vacancies</h2>
-          <p className="text-muted-foreground mb-8">Explore open roles and apply below.</p>
-          <div className="grid gap-4 md:grid-cols-2">
-            {vacancies.map((v) => (
-              <div key={v.title} className="rounded-xl bg-background p-5 border flex items-start justify-between gap-4 hover:border-gold transition-colors">
-                <div>
-                  <div className="flex items-center gap-2 text-navy font-semibold">
-                    <Briefcase className="h-4 w-4 text-gold" /> {v.title}
+          <p className="text-muted-foreground mb-8">
+            {vacancies.length > 0 ? "Explore open roles and apply below." : "We advertise all open roles on this page."}
+          </p>
+          {vacancies.length === 0 ? (
+            <div className="rounded-xl bg-background border border-dashed p-8 text-center">
+              <Briefcase className="h-8 w-8 text-gold mx-auto mb-3" />
+              <p className="font-semibold text-navy">No current job vacancy</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                There are no openings at the moment. You're still welcome to submit an application below and we'll keep it on file.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {vacancies.map((v) => (
+                <div key={v.id} className="rounded-xl bg-background p-5 border flex items-start justify-between gap-4 hover:border-gold transition-colors">
+                  <div>
+                    <div className="flex items-center gap-2 text-navy font-semibold">
+                      <Briefcase className="h-4 w-4 text-gold" /> {v.title}
+                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">{v.location} · {v.employment_type}</div>
                   </div>
-                  <div className="mt-1 text-xs text-muted-foreground">{v.loc} · {v.type}</div>
+                  <a href="#apply" className="text-sm font-semibold text-navy hover:text-gold">Apply →</a>
                 </div>
-                <a href="#apply" className="text-sm font-semibold text-navy hover:text-gold">Apply →</a>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -119,13 +148,15 @@ function Careers() {
         <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <h2 className="text-3xl font-bold text-navy">Application Requirements</h2>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground list-disc pl-5">
-              <li>KCSE Certificate (D+ and above)</li>
-              <li>Valid National ID and Certificate of Good Conduct</li>
-              <li>Physically fit, minimum height 5'6"</li>
-              <li>Aged between 21 and 45 years</li>
-              <li>Previous security or disciplined-forces experience is an advantage</li>
-            </ul>
+            {requirements.length === 0 ? (
+              <p className="mt-4 text-sm text-muted-foreground">Requirements will be listed here soon.</p>
+            ) : (
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+                {requirements.map((r) => (
+                  <li key={r.id}>{r.requirement}</li>
+                ))}
+              </ul>
+            )}
           </div>
           <form
             onSubmit={onApply}
