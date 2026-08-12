@@ -588,3 +588,153 @@ function Admins() {
     </div>
   );
 }
+
+/* ---------------- Vacancies & requirements ---------------- */
+function Vacancies() {
+  const qc = useQueryClient();
+  const [form, setForm] = useState({ title: "", location: "", employment_type: "Full-time" });
+  const [req, setReq] = useState("");
+
+  const { data: vacancies = [], isLoading } = useQuery({
+    queryKey: ["admin-vacancies"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("job_vacancies").select("*").order("sort_order");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const { data: requirements = [] } = useQuery({
+    queryKey: ["admin-requirements"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("application_requirements").select("*").order("sort_order");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const invalidateV = () => qc.invalidateQueries({ queryKey: ["admin-vacancies"] });
+  const invalidateR = () => qc.invalidateQueries({ queryKey: ["admin-requirements"] });
+
+  const addVacancy = useMutation({
+    mutationFn: async () => {
+      const next = (vacancies.at(-1)?.sort_order ?? 0) + 1;
+      const { error } = await supabase.from("job_vacancies").insert({
+        title: form.title.trim(),
+        location: form.location.trim(),
+        employment_type: form.employment_type.trim() || "Full-time",
+        sort_order: next,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Vacancy added"); setForm({ title: "", location: "", employment_type: "Full-time" }); invalidateV(); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const togglePublished = useMutation({
+    mutationFn: async ({ id, published }: { id: string; published: boolean }) => {
+      const { error } = await supabase.from("job_vacancies").update({ published }).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: invalidateV,
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const removeVacancy = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("job_vacancies").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Vacancy deleted"); invalidateV(); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const addReq = useMutation({
+    mutationFn: async () => {
+      const next = (requirements.at(-1)?.sort_order ?? 0) + 1;
+      const { error } = await supabase.from("application_requirements").insert({ requirement: req.trim(), sort_order: next });
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Requirement added"); setReq(""); invalidateR(); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const removeReq = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("application_requirements").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Requirement deleted"); invalidateR(); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  return (
+    <div className="grid gap-6">
+      <Panel title="Job Vacancies">
+        <form
+          onSubmit={(e) => { e.preventDefault(); addVacancy.mutate(); }}
+          className="grid gap-3 sm:grid-cols-[1.4fr_1.2fr_1fr_auto] items-end rounded-xl bg-muted/40 border p-4 mb-5"
+        >
+          <div>
+            <label className="text-xs font-medium">Job title</label>
+            <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Security Officer" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label className="text-xs font-medium">Location</label>
+            <input required value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="Kiambu" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label className="text-xs font-medium">Type</label>
+            <input value={form.employment_type} onChange={(e) => setForm({ ...form, employment_type: e.target.value })} placeholder="Full-time" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+          </div>
+          <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4 py-2.5 inline-flex items-center gap-1.5">
+            <Plus className="h-4 w-4" /> Add
+          </button>
+        </form>
+
+        {isLoading ? <Empty text="Loading…" /> : vacancies.length === 0 ? (
+          <Empty text="No vacancies. The website is showing “No current job vacancy”." />
+        ) : (
+          <div className="grid gap-3 md:grid-cols-2">
+            {vacancies.map((v) => (
+              <div key={v.id} className="rounded-xl border p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-navy">{v.title}</div>
+                    <div className="mt-1 text-xs text-muted-foreground">{v.location} · {v.employment_type}</div>
+                  </div>
+                  <button onClick={() => removeVacancy.mutate(v.id)} className="rounded-md border px-2 py-1.5 text-xs hover:border-destructive hover:text-destructive">
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                <label className="mt-3 flex items-center gap-2 text-xs">
+                  <input type="checkbox" checked={v.published} onChange={(e) => togglePublished.mutate({ id: v.id, published: e.target.checked })} />
+                  Visible on website
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
+      </Panel>
+
+      <Panel title="Application Requirements">
+        <form onSubmit={(e) => { e.preventDefault(); addReq.mutate(); }} className="flex gap-2 mb-4">
+          <input required value={req} onChange={(e) => setReq(e.target.value)} placeholder="e.g. Valid Certificate of Good Conduct" className="flex-1 rounded-md border bg-background px-3 py-2 text-sm" />
+          <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4 inline-flex items-center gap-1.5">
+            <Plus className="h-4 w-4" /> Add
+          </button>
+        </form>
+        {requirements.length === 0 ? <Empty text="No requirements listed." /> : (
+          <ul className="space-y-2">
+            {requirements.map((r) => (
+              <li key={r.id} className="flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm">
+                <span>{r.requirement}</span>
+                <button onClick={() => removeReq.mutate(r.id)} className="text-xs text-muted-foreground hover:text-destructive">Remove</button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Panel>
+    </div>
+  );
+}
