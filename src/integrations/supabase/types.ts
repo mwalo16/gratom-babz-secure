@@ -29,6 +29,30 @@ export type Database = {
         }
         Relationships: []
       }
+      application_requirements: {
+        Row: {
+          created_at: string
+          id: string
+          requirement: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          requirement: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          requirement?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -119,6 +143,39 @@ export type Database = {
           phone?: string | null
           position?: string | null
           status?: string
+        }
+        Relationships: []
+      }
+      job_vacancies: {
+        Row: {
+          created_at: string
+          employment_type: string
+          id: string
+          location: string
+          published: boolean
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          employment_type?: string
+          id?: string
+          location?: string
+          published?: boolean
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          employment_type?: string
+          id?: string
+          location?: string
+          published?: boolean
+          sort_order?: number
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
