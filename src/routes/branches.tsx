@@ -10,7 +10,7 @@ const branches = [
   { name: "Kikuyu / Wangige", location: "Bishop Kariuki Centre", region: "Kiambu County", phone: "0716 546 096" },
   { name: "Nairobi", location: "Ngara Fig Tree – Bhaveshi Centre", region: "Nairobi County", phone: "0726 382 628" },
   { name: "Limuru", location: "Ushirika Centre", region: "Kiambu County", phone: "0707 846 623" },
-  { name: "Thika", location: "Savannah Building", region: "Kiambu County", phone: "0736 859 500" },
+  { name: "Thika", location: "Thika town", region: "Kiambu County", phone: "0736 859 500" },
   { name: "Mombasa / Malindi", location: "Savannah Building", region: "Coast Region", phone: "0725 478 460" },
 ];
 
