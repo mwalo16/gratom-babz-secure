@@ -110,6 +110,7 @@ function AdminPage() {
 
         {tab === "messages" && <Messages />}
         {tab === "applications" && <Applications />}
+        {tab === "vacancies" && <Vacancies />}
         {tab === "services" && <Services />}
         {tab === "gallery" && <Gallery />}
         {tab === "admins" && <Admins />}
