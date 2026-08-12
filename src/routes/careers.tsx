@@ -69,7 +69,7 @@ export const Route = createFileRoute("/careers")({
 
 
 function Careers() {
-  const { vacancies, requirements } = Route.useLoaderData();
+  const { vacancies, requirements } = Route.useLoaderData() as { vacancies: Vacancy[]; requirements: Requirement[] };
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
