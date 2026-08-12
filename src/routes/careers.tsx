@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 type Vacancy = { id: string; title: string; location: string; employment_type: string };
 type Requirement = { id: string; requirement: string };
 
-async function loadCareers() {
+async function loadCareers(): Promise<{ vacancies: Vacancy[]; requirements: Requirement[] }> {
   const [v, r] = await Promise.all([
     supabase
       .from("job_vacancies")
