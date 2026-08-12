@@ -19,11 +19,12 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "messages" | "applications" | "services" | "gallery" | "admins";
+type Tab = "messages" | "applications" | "vacancies" | "services" | "gallery" | "admins";
 
 const TABS: { id: Tab; label: string; icon: typeof Inbox }[] = [
   { id: "messages", label: "Messages", icon: Inbox },
   { id: "applications", label: "Applications", icon: Briefcase },
+  { id: "vacancies", label: "Vacancies", icon: Briefcase },
   { id: "services", label: "Services", icon: Wrench },
   { id: "gallery", label: "Gallery", icon: Images },
   { id: "admins", label: "Admins", icon: UserPlus },
