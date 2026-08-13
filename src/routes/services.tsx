@@ -31,6 +31,7 @@ type Service = {
   description: string;
   details: string | null;
   icon: string;
+  image_url: string | null;
 };
 
 function Services() {
@@ -40,7 +41,7 @@ function Services() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("services")
-        .select("id, title, description, details, icon")
+        .select("id, title, description, details, icon, image_url")
         .eq("published", true)
         .order("sort_order");
       if (error) throw error;
@@ -60,18 +61,30 @@ function Services() {
               {services.map((s) => {
                 const Icon = ICONS[s.icon] ?? Shield;
                 return (
-                  <div key={s.id} className="group rounded-xl bg-background border p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <div className="h-14 w-14 rounded-xl gradient-navy flex items-center justify-center text-gold mb-4 group-hover:scale-110 transition-transform">
-                      <Icon className="h-7 w-7" />
-                    </div>
+                  <div key={s.id} className="group rounded-xl bg-background border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col">
+                    {s.image_url ? (
+                      <div className="relative h-44 overflow-hidden">
+                        <img src={s.image_url} alt={`${s.title} — Gratom Babz Security`} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
+                        <div className="absolute bottom-3 left-3 h-11 w-11 rounded-lg gradient-navy flex items-center justify-center text-gold shadow-lg">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-14 w-14 rounded-xl gradient-navy flex items-center justify-center text-gold mt-6 ml-6">
+                        <Icon className="h-7 w-7" />
+                      </div>
+                    )}
+                    <div className="p-6 flex flex-col flex-1">
                     <h3 className="text-lg font-semibold text-navy">{s.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{s.description}</p>
                     <button
                       onClick={() => setSelected(s)}
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy hover:text-gold transition-colors"
+                      className="mt-4 self-start inline-flex items-center gap-1.5 text-sm font-semibold text-navy hover:text-gold transition-colors"
                     >
                       Learn more <ArrowRight className="h-3.5 w-3.5" />
                     </button>
+                    </div>
                   </div>
                 );
               })}
@@ -99,6 +112,9 @@ function Services() {
                 <DialogDescription className="text-sm text-muted-foreground pt-1">{selected.description}</DialogDescription>
               </DialogHeader>
               <div className="space-y-5">
+                {selected.image_url && (
+                  <img src={selected.image_url} alt={`${selected.title} — Gratom Babz Security`} className="w-full h-56 object-cover rounded-xl" />
+                )}
                 <p className="text-sm leading-relaxed text-foreground/90">
                   {selected.details || "Detailed description coming soon. Contact us for more information about this service."}
                 </p>
