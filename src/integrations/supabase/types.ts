@@ -207,6 +207,7 @@ export type Database = {
           details: string | null
           icon: string
           id: string
+          image_url: string | null
           published: boolean
           sort_order: number
           title: string
@@ -217,6 +218,7 @@ export type Database = {
           details?: string | null
           icon?: string
           id?: string
+          image_url?: string | null
           published?: boolean
           sort_order?: number
           title: string
@@ -227,6 +229,7 @@ export type Database = {
           details?: string | null
           icon?: string
           id?: string
+          image_url?: string | null
           published?: boolean
           sort_order?: number
           title?: string
