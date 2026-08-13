@@ -251,7 +251,7 @@ function Applications() {
 /* ---------------- Services ---------------- */
 function Services() {
   const qc = useQueryClient();
-  const [form, setForm] = useState({ title: "", description: "", details: "", icon: "Shield" });
+  const [form, setForm] = useState({ title: "", description: "", details: "", icon: "Shield", image_url: "" });
   const [editing, setEditing] = useState<string | null>(null);
   const { data = [], isLoading } = useQuery({
     queryKey: ["admin-services"],
@@ -267,10 +267,10 @@ function Services() {
   const add = useMutation({
     mutationFn: async () => {
       const next = (data.at(-1)?.sort_order ?? 0) + 1;
-      const { error } = await supabase.from("services").insert({ ...form, sort_order: next });
+      const { error } = await supabase.from("services").insert({ ...form, image_url: form.image_url || null, sort_order: next });
       if (error) throw error;
     },
-    onSuccess: () => { toast.success("Service added"); setForm({ title: "", description: "", details: "", icon: "Shield" }); invalidate(); },
+    onSuccess: () => { toast.success("Service added"); setForm({ title: "", description: "", details: "", icon: "Shield", image_url: "" }); invalidate(); },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -325,6 +325,10 @@ function Services() {
           <label className="text-xs font-medium">Detailed description</label>
           <textarea value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} rows={3} placeholder="Longer description shown when visitors click Learn more…" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
         </div>
+        <div>
+          <label className="text-xs font-medium">Photo URL</label>
+          <input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://… or /__l5e/assets-v1/…" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        </div>
         <div className="flex justify-end">
           <button className="rounded-md gradient-navy text-white text-sm font-semibold px-4 py-2.5 inline-flex items-center gap-1.5">
             <Plus className="h-4 w-4" /> Add service
@@ -341,9 +345,12 @@ function Services() {
               ) : (
                 <>
                   <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="font-semibold text-navy">{s.title}</div>
-                      <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
+                    <div className="flex gap-3">
+                      {s.image_url ? <img src={s.image_url} alt="" className="h-16 w-24 object-cover rounded-md border shrink-0" /> : null}
+                      <div>
+                        <div className="font-semibold text-navy">{s.title}</div>
+                        <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
+                      </div>
                     </div>
                     <div className="flex items-center gap-1">
                       <button onClick={() => setEditing(s.id)} className="rounded-md border px-2 py-1.5 text-xs hover:border-navy">Edit</button>
@@ -366,12 +373,13 @@ function Services() {
   );
 }
 
-function EditServiceForm({ service, onSave, onCancel }: { service: any; onSave: (values: { title: string; description: string; details: string; icon: string }) => void; onCancel: () => void }) {
+function EditServiceForm({ service, onSave, onCancel }: { service: any; onSave: (values: { title: string; description: string; details: string; icon: string; image_url: string }) => void; onCancel: () => void }) {
   const [values, setValues] = useState({
     title: service.title,
     description: service.description,
     details: service.details ?? "",
     icon: service.icon,
+    image_url: service.image_url ?? "",
   });
   return (
     <form onSubmit={(e) => { e.preventDefault(); onSave(values); }} className="space-y-3">
@@ -392,6 +400,11 @@ function EditServiceForm({ service, onSave, onCancel }: { service: any; onSave: 
       <div>
         <label className="text-xs font-medium">Detailed description</label>
         <textarea value={values.details} onChange={(e) => setValues({ ...values, details: e.target.value })} rows={4} className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+      </div>
+      <div>
+        <label className="text-xs font-medium">Photo URL</label>
+        <input value={values.image_url} onChange={(e) => setValues({ ...values, image_url: e.target.value })} placeholder="https://…" className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm" />
+        {values.image_url ? <img src={values.image_url} alt="" className="mt-2 h-24 w-full object-cover rounded-md border" /> : null}
       </div>
       <div className="flex justify-end gap-2">
         <button type="button" onClick={onCancel} className="rounded-md border px-3 py-1.5 text-xs">Cancel</button>
