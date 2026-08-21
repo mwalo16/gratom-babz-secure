@@ -218,7 +218,7 @@ function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { n: "Jane M.", r: "Estate Chairperson, Edenville", q: "Gratom Babz has transformed how our estate feels at night. Response times are excellent and officers are disciplined." },
-              { n: "Peter K.", r: "Operations Manager, Nairobi", q: "Their integrated CCTV and manned guarding stack has cut our incident rate to almost zero." },
+              { n: "Lisunu D.", r: "Operations Officer, Nairobi", q: "Their integrated CCTV and manned guarding stack has cut our incident rate to almost zero." },
               { n: "Aisha H.", r: "Homeowner, Nyeri", q: "Professional from the guards on site to the control room. Peace of mind, delivered." },
             ].map((t) => (
               <div key={t.n} className="rounded-xl bg-background p-6 border shadow-sm">
