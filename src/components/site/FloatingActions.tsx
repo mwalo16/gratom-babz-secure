@@ -31,11 +31,6 @@ export function FloatingActions() {
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={(e) => {
-          e.preventDefault();
-          const w = window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
-          if (!w) window.top!.location.href = WHATSAPP_URL;
-        }}
         aria-label="Chat with us on WhatsApp"
         className="h-12 w-12 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
         style={{ backgroundColor: "#25D366", color: "white" }}

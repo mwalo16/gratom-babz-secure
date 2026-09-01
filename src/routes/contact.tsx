@@ -119,7 +119,7 @@ function Contact() {
                 <div className="text-sm text-muted-foreground">Kiambu Rd, off Kugeria North · P.O. Box 1800–00900 Kiambu</div>
               </div>
             </div>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); const w = window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer"); if (!w) window.top!.location.href = WHATSAPP_URL; }} className="flex items-center justify-center gap-2 rounded-xl px-6 py-4 font-semibold text-white shadow-lg hover:shadow-xl transition-shadow" style={{ backgroundColor: "#25D366" }}>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-xl px-6 py-4 font-semibold text-white shadow-lg hover:shadow-xl transition-shadow" style={{ backgroundColor: "#25D366" }}>
               <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
             </a>
           </div>
