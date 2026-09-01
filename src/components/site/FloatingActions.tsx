@@ -23,7 +23,19 @@ export function FloatingActions() {
       <a href="tel:0729337005" aria-label="Call" className="h-12 w-12 rounded-full gradient-navy text-white shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
         <Phone className="h-5 w-5" />
       </a>
-      <a href="https://wa.me/254729337005" target="_blank" rel="noopener" aria-label="WhatsApp" className="h-12 w-12 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform" style={{ backgroundColor: "#25D366", color: "white" }}>
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          e.preventDefault();
+          const w = window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+          if (!w) window.top!.location.href = WHATSAPP_URL;
+        }}
+        aria-label="Chat with us on WhatsApp"
+        className="h-12 w-12 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
+        style={{ backgroundColor: "#25D366", color: "white" }}
+      >
         <MessageCircle className="h-5 w-5" />
       </a>
     </div>
