@@ -1,14 +1,47 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import logo from "../../assets/gbs-logo.png.asset.json";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    const value = email.trim().toLowerCase();
+    if (!value) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("newsletter_subscribers").insert({ email: value });
+      if (error) {
+        if (error.code === "23505") {
+          toast.success("You're already subscribed. Thank you!");
+          setEmail("");
+        } else {
+          toast.error("Could not subscribe right now. Please try again.");
+        }
+      } else {
+        toast.success("Thanks for subscribing! We'll be in touch.");
+        setEmail("");
+      }
+    } catch {
+      toast.error("Could not subscribe right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <footer className="bg-navy text-navy-foreground mt-24">
       <div className="container-x py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-12 w-auto object-contain" />
+            <span className="inline-flex items-center justify-center rounded-lg bg-white p-1.5 shadow-sm">
+              <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-12 w-auto object-contain" />
+            </span>
             <div>
               <div className="font-display font-bold">Gratom Babz</div>
               <div className="text-[11px] uppercase tracking-wider text-white/60">Security Services Ltd</div>
@@ -49,9 +82,19 @@ export function Footer() {
         <div>
           <h4 className="font-semibold text-gold mb-4">Newsletter</h4>
           <p className="text-sm text-white/70 mb-3">Security tips and company updates.</p>
-          <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" required placeholder="Email address" className="flex-1 rounded-md bg-white/10 border border-white/20 px-3 py-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-gold" />
-            <button className="rounded-md gradient-gold text-navy font-semibold px-4 py-2 text-sm">Join</button>
+          <form className="flex gap-2" onSubmit={handleSubscribe}>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              className="flex-1 rounded-md bg-white/10 border border-white/20 px-3 py-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-gold"
+            />
+            <button type="submit" disabled={submitting} className="rounded-md gradient-gold text-navy font-semibold px-4 py-2 text-sm inline-flex items-center gap-1.5 disabled:opacity-70">
+              {submitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+              Join
+            </button>
           </form>
           <div className="mt-5 flex items-start gap-2 text-sm text-white/70">
             <MapPin className="h-4 w-4 mt-0.5 text-gold" /> Head Office: Kiambu Rd, off Kugeria North · P.O. Box 1800–00900, Kiambu
