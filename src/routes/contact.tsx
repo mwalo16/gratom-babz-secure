@@ -3,6 +3,7 @@ import { PageHero } from "../components/site/Section";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { WHATSAPP_URL } from "../components/site/FloatingActions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
