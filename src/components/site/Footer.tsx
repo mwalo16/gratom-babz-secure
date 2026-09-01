@@ -1,8 +1,39 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import logo from "../../assets/gbs-logo.png.asset.json";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    const value = email.trim().toLowerCase();
+    if (!value) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("newsletter_subscribers").insert({ email: value });
+      if (error) {
+        if (error.code === "23505") {
+          toast.success("You're already subscribed. Thank you!");
+          setEmail("");
+        } else {
+          toast.error("Could not subscribe right now. Please try again.");
+        }
+      } else {
+        toast.success("Thanks for subscribing! We'll be in touch.");
+        setEmail("");
+      }
+    } catch {
+      toast.error("Could not subscribe right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <footer className="bg-navy text-navy-foreground mt-24">
       <div className="container-x py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
