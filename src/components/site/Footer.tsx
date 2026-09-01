@@ -39,7 +39,9 @@ export function Footer() {
       <div className="container-x py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-12 w-auto object-contain" />
+            <span className="inline-flex items-center justify-center rounded-lg bg-white p-1.5 shadow-sm">
+              <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-12 w-auto object-contain" />
+            </span>
             <div>
               <div className="font-display font-bold">Gratom Babz</div>
               <div className="text-[11px] uppercase tracking-wider text-white/60">Security Services Ltd</div>
