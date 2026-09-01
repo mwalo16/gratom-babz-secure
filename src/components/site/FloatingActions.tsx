@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Phone, MessageCircle, ArrowUp } from "lucide-react";
 
-export const WHATSAPP_URL =
-  "https://wa.me/254729337005?text=" +
-  encodeURIComponent("Hello Gratom Babz Security, I'd like to enquire about your services.");
+export const WHATSAPP_URL = "https://wa.me/254729337005";
 
 export function FloatingActions() {
   const [show, setShow] = useState(false);
