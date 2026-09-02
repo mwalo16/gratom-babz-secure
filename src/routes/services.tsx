@@ -63,8 +63,8 @@ function Services() {
                 return (
                   <div key={s.id} className="group rounded-xl bg-background border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col">
                     {s.image_url ? (
-                      <div className="relative h-72 overflow-hidden bg-navy/5 flex items-center justify-center">
-                        <img src={s.image_url} alt={`${s.title} — Gratom Babz Security`} loading="lazy" className="h-full w-full object-contain" />
+                      <div className="relative h-56 overflow-hidden">
+                        <img src={s.image_url} alt={`${s.title} — Gratom Babz Security`} loading="lazy" className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
                         <div className="absolute bottom-3 left-3 h-11 w-11 rounded-lg gradient-navy flex items-center justify-center text-gold shadow-lg">
                           <Icon className="h-6 w-6" />
@@ -113,7 +113,7 @@ function Services() {
               </DialogHeader>
               <div className="space-y-5">
                 {selected.image_url && (
-                  <img src={selected.image_url} alt={`${selected.title} — Gratom Babz Security`} className="w-full max-h-[26rem] object-contain rounded-xl bg-navy/5" />
+                  <img src={selected.image_url} alt={`${selected.title} — Gratom Babz Security`} className="w-full h-72 object-cover object-center rounded-xl" />
                 )}
                 <p className="text-sm leading-relaxed text-foreground/90">
                   {selected.details || "Detailed description coming soon. Contact us for more information about this service."}

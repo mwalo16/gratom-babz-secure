@@ -1,0 +1,2 @@
+UPDATE public.services SET image_url = '/__l5e/assets-v1/9d3f23aa-c49d-4532-bfc4-70b5e64b4717/guards-gate-wide.jpg' WHERE title ILIKE '%Commercial%';
+UPDATE public.services SET image_url = '/__l5e/assets-v1/fc598759-07bc-4af7-8b8d-a7021e176b1c/guards-trio-wide.jpg' WHERE title ILIKE '%Industrial%';
