@@ -113,7 +113,7 @@ function Services() {
               </DialogHeader>
               <div className="space-y-5">
                 {selected.image_url && (
-                  <img src={selected.image_url} alt={`${selected.title} — Gratom Babz Security`} className="w-full max-h-[26rem] object-contain rounded-xl bg-navy/5" />
+                  <img src={selected.image_url} alt={`${selected.title} — Gratom Babz Security`} className="w-full h-72 object-cover object-center rounded-xl" />
                 )}
                 <p className="text-sm leading-relaxed text-foreground/90">
                   {selected.details || "Detailed description coming soon. Contact us for more information about this service."}
