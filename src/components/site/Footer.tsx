@@ -71,6 +71,7 @@ export function Footer() {
         <div>
           <h4 className="font-semibold text-gold mb-4">Emergency Numbers</h4>
           <ul className="space-y-2 text-sm text-white/80">
+            <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> 24-Hour Hotline: 0707 846 623</li>
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Control Room: 0729 337 005</li>
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Alt: 0726 459 010</li>
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Alt: 0716 383 502</li>

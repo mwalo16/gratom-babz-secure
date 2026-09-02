@@ -248,7 +248,7 @@ function Home() {
               <p className="mt-4 text-white/80">Speak to our security advisors and get a tailored quotation within 24 hours.</p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Link to="/contact" className="inline-flex items-center gap-2 rounded-md gradient-gold text-navy font-semibold px-6 py-3.5">Get a Free Quote <ArrowRight className="h-4 w-4" /></Link>
-                <a href="tel:0729337005" className="inline-flex items-center gap-2 rounded-md border border-white/30 text-white font-semibold px-6 py-3.5 hover:bg-white/10">Call 0729 337 005</a>
+                <a href="tel:0707846623" className="inline-flex items-center gap-2 rounded-md border border-white/30 text-white font-semibold px-6 py-3.5 hover:bg-white/10">Call 0707 846 623</a>
               </div>
             </div>
           </div>
@@ -259,7 +259,11 @@ function Home() {
       <section className="py-6 bg-gold text-navy">
         <div className="container-x flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div className="font-semibold text-lg flex items-center gap-2"><Award className="h-5 w-5" /> 24-Hour Emergency Hotline</div>
-          <a href="tel:0729337005" className="font-bold text-xl md:text-2xl hover:underline">0729 337 005</a>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <a href="tel:0707846623" className="font-bold text-xl md:text-2xl hover:underline">0707 846 623</a>
+            <span className="hidden sm:inline text-navy/60">·</span>
+            <a href="tel:0729337005" className="font-bold text-xl md:text-2xl hover:underline">0729 337 005</a>
+          </div>
         </div>
       </section>
     </>

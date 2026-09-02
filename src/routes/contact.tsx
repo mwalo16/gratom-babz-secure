@@ -49,7 +49,7 @@ function Contact() {
         <div className="container-x grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {[
             { i: Phone, t: "Head Office", lines: ["020 234 1729", "0726 459 010", "0716 383 502"] },
-            { i: Phone, t: "24-Hour Control Room", lines: ["0729 337 005"], accent: true },
+            { i: Phone, t: "24-Hour Emergency Hotline", lines: ["0707 846 623", "0729 337 005"], accent: true },
             { i: Phone, t: "Branch Lines", lines: ["Kiambu: 0723 684 901", "Nairobi: 0726 382 628", "Thika: 0736 859 500"] },
             { i: Mail, t: "Email", lines: ["gtbabzservices@gmail.com"] },
           ].map((c) => (
