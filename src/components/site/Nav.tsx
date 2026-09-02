@@ -29,7 +29,7 @@ export function Nav() {
       <div className="hidden md:block bg-navy text-navy-foreground text-xs">
         <div className="container-x flex items-center justify-between py-2">
           <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5"><Phone className="h-3 w-3 text-gold" /> 24/7 Control Room: 0729 337 005 · Head Office: 020 234 1729</span>
+            <span className="inline-flex items-center gap-1.5"><Phone className="h-3 w-3 text-gold" /> 24/7 Control Room: 0729 337 005 · Hotline: 0707 846 623 · Head Office: 020 234 1729</span>
             <span className="opacity-70">gtbabzservices@gmail.com</span>
           </div>
           <span className="text-gold font-medium">...be assured of the BEST!</span>
