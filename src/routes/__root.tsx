@@ -54,6 +54,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
+      { title: "Gratom Babz Security Services Ltd" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0B2341" },
       { property: "og:site_name", content: "Gratom Babz Security Services Ltd" },
