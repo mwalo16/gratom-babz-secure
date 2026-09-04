@@ -80,7 +80,9 @@ function AdminPage() {
       <header className="gradient-navy text-white">
         <div className="container-x flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="" className="h-10 w-auto" />
+            <div className="bg-white rounded-lg p-1.5 shadow-sm">
+              <img src={logo.url} alt="GBS logo" className="h-10 w-auto" />
+            </div>
             <div>
               <div className="font-bold leading-tight">Admin Dashboard</div>
               <div className="text-xs text-white/70">Gratom Babz Security Services Ltd</div>
