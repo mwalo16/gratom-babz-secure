@@ -3,9 +3,19 @@ import { PageHero } from "../components/site/Section";
 import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const applicationSchema = z.object({
+  name: z.string().trim().min(1, { message: "Please enter your name." }).max(120),
+  phone: z.string().trim().max(40, { message: "Phone number is too long." }),
+  email: z.string().trim().email({ message: "Please enter a valid email address." }).max(200),
+  position: z.string().trim().max(120),
+  cover_note: z.string().trim().max(3000, { message: "Cover note is too long (max 3000 characters)." }),
+});
 
 type Vacancy = { id: string; title: string; location: string; employment_type: string };
 type Requirement = { id: string; requirement: string };
+
 
 async function loadCareers(): Promise<{ vacancies: Vacancy[]; requirements: Requirement[] }> {
   const [v, r] = await Promise.all([
@@ -77,19 +87,27 @@ function Careers() {
   async function onApply(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    setBusy(true);
     setError(null);
-    const { error: err } = await supabase.from("job_applications").insert({
-      name: String(fd.get("name") ?? "").slice(0, 120),
-      phone: String(fd.get("phone") ?? "").slice(0, 40),
-      email: String(fd.get("email") ?? "").slice(0, 200),
-      position: String(fd.get("position") ?? "").slice(0, 120),
-      cover_note: String(fd.get("cover_note") ?? "").slice(0, 3000),
+
+    const parsed = applicationSchema.safeParse({
+      name: String(fd.get("name") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      position: String(fd.get("position") ?? ""),
+      cover_note: String(fd.get("cover_note") ?? ""),
     });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setBusy(true);
+    const { error: err } = await supabase.from("job_applications").insert(parsed.data);
     setBusy(false);
     if (err) setError("Sorry, we couldn't submit your application. Please try again later.");
     else setSubmitted(true);
   }
+
 
 
   return (

@@ -4,6 +4,16 @@ import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { WHATSAPP_URL } from "../components/site/FloatingActions";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, { message: "Please enter your name." }).max(120),
+  phone: z.string().trim().max(40, { message: "Phone number is too long." }),
+  email: z.string().trim().email({ message: "Please enter a valid email address." }).max(200),
+  service: z.string().trim().max(120),
+  message: z.string().trim().min(1, { message: "Please enter a message." }).max(3000, { message: "Message is too long (max 3000 characters)." }),
+});
+
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -27,19 +37,27 @@ function Contact() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    setBusy(true);
     setError(null);
-    const { error: err } = await supabase.from("contact_messages").insert({
-      name: String(fd.get("name") ?? "").slice(0, 120),
-      phone: String(fd.get("phone") ?? "").slice(0, 40),
-      email: String(fd.get("email") ?? "").slice(0, 200),
-      service: String(fd.get("service") ?? "").slice(0, 120),
-      message: String(fd.get("message") ?? "").slice(0, 3000),
+
+    const parsed = contactSchema.safeParse({
+      name: String(fd.get("name") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      service: String(fd.get("service") ?? ""),
+      message: String(fd.get("message") ?? ""),
     });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setBusy(true);
+    const { error: err } = await supabase.from("contact_messages").insert(parsed.data);
     setBusy(false);
     if (err) setError("Sorry, we couldn't send your message. Please call us instead.");
     else setSent(true);
   }
+
 
   return (
     <>

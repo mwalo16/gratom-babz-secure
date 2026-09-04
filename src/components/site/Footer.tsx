@@ -4,6 +4,16 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "../../assets/gbs-logo.png.asset.json";
+import { z } from "zod";
+
+const emailSchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .min(5, { message: "Please enter a valid email address." })
+  .max(200, { message: "That email address is too long." })
+  .email({ message: "Please enter a valid email address." });
+
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -11,8 +21,12 @@ export function Footer() {
 
   async function handleSubscribe(e: React.FormEvent) {
     e.preventDefault();
-    const value = email.trim().toLowerCase();
-    if (!value) return;
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please enter a valid email address.");
+      return;
+    }
+    const value = parsed.data;
     setSubmitting(true);
     try {
       const { error } = await supabase.from("newsletter_subscribers").insert({ email: value });
