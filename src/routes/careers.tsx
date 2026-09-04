@@ -3,9 +3,19 @@ import { PageHero } from "../components/site/Section";
 import { Briefcase, GraduationCap, Heart, TrendingUp, Upload } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const applicationSchema = z.object({
+  name: z.string().trim().min(1, { message: "Please enter your name." }).max(120),
+  phone: z.string().trim().max(40, { message: "Phone number is too long." }),
+  email: z.string().trim().email({ message: "Please enter a valid email address." }).max(200),
+  position: z.string().trim().max(120),
+  cover_note: z.string().trim().max(3000, { message: "Cover note is too long (max 3000 characters)." }),
+});
 
 type Vacancy = { id: string; title: string; location: string; employment_type: string };
 type Requirement = { id: string; requirement: string };
+
 
 async function loadCareers(): Promise<{ vacancies: Vacancy[]; requirements: Requirement[] }> {
   const [v, r] = await Promise.all([
