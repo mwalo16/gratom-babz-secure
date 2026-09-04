@@ -77,19 +77,27 @@ function Careers() {
   async function onApply(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    setBusy(true);
     setError(null);
-    const { error: err } = await supabase.from("job_applications").insert({
-      name: String(fd.get("name") ?? "").slice(0, 120),
-      phone: String(fd.get("phone") ?? "").slice(0, 40),
-      email: String(fd.get("email") ?? "").slice(0, 200),
-      position: String(fd.get("position") ?? "").slice(0, 120),
-      cover_note: String(fd.get("cover_note") ?? "").slice(0, 3000),
+
+    const parsed = applicationSchema.safeParse({
+      name: String(fd.get("name") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      position: String(fd.get("position") ?? ""),
+      cover_note: String(fd.get("cover_note") ?? ""),
     });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setBusy(true);
+    const { error: err } = await supabase.from("job_applications").insert(parsed.data);
     setBusy(false);
     if (err) setError("Sorry, we couldn't submit your application. Please try again later.");
     else setSubmitted(true);
   }
+
 
 
   return (
