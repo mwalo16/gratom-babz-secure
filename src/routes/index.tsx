@@ -217,7 +217,7 @@ function Home() {
           <SectionHeader eyebrow="Testimonials" title="What our clients say" />
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { n: "Jane M.", r: "Estate Chairperson, Edenville", q: "Gratom Babz has transformed how safe our estate feels  both day and night. Response times are excellent and officers are disciplined." },
+              { n: "Edenville Estate.", r: "Chairperson, Edenville", q: "Gratom Babz has transformed how safe our estate feels  both day and night. Response times are excellent and officers are disciplined." },
               { n: "Lisunu D.", r: "Operations Officer, Nairobi", q: "Their integrated CCTV and manned guarding stack has cut our incident rate to almost zero." },
               { n: "Aisha H.", r: "Homeowner, Nyeri", q: "Professional from the guards on site to the control room. Peace of mind, delivered." },
             ].map((t) => (
