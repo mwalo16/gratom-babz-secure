@@ -75,12 +75,44 @@ function Counters() {
   );
 }
 
+const SLIDES = [
+  { src: heroAsset.url, alt: "Gratom Babz branded patrol vehicles" },
+  { src: k9Asset.url, alt: "Gratom Babz K9 officer with dog" },
+  { src: responseAsset.url, alt: "Gratom Babz response unit officers" },
+  { src: motoAsset.url, alt: "Gratom Babz motorcycle patrol riders" },
+  { src: cctvAsset.url, alt: "CCTV installation by Gratom Babz" },
+  { src: teamAsset.url, alt: "Gratom Babz guards on parade" },
+];
+
+function HeroSlides() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((x) => (x + 1) % SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <>
+      {SLIDES.map((s, idx) => (
+        <img key={s.src + idx} src={s.src} alt={s.alt} width={1920} height={1080}
+          loading={idx === 0 ? "eager" : "lazy"}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${idx === i ? "opacity-100" : "opacity-0"}`} />
+      ))}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {SLIDES.map((_, idx) => (
+          <button key={idx} aria-label={`Show picture ${idx + 1}`} onClick={() => setI(idx)}
+            className={`h-2.5 rounded-full transition-all ${idx === i ? "w-8 bg-gold" : "w-2.5 bg-white/60"}`} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 function Home() {
   return (
     <>
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        <img src={heroAsset.url} alt="Gratom Babz branded patrol vehicles at a client site" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
+        <HeroSlides />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/40" />
         <div className="container-x relative py-20 md:py-28 text-navy-foreground">
           <div className="max-w-3xl animate-fade-up">
