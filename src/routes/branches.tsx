@@ -136,7 +136,7 @@ function Branches() {
             {freshaSites.map((s) => (
               <a
                 key={s.name}
-                href={`https://www.google.com/maps?q=${encodeURIComponent(`${s.name}, Kenya`)}`}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`rounded-xl border p-5 bg-background transition-all hover:shadow-lg ${s.hq ? "border-gold" : "hover:border-navy"}`}
@@ -146,6 +146,7 @@ function Branches() {
                   <h3 className="font-bold text-lg text-navy">{s.name}</h3>
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{s.hq ? "Fresha Headquarters (Main Offices)" : "Fresha Depot"}</div>
+                {s.street && <div className="text-sm text-muted-foreground">{s.street}</div>}
                 <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4 text-gold" /> 24/7 Manned Guarding</div>
               </a>
             ))}
@@ -157,10 +158,10 @@ function Branches() {
 }
 
 const freshaSites = [
-  { name: "Githunguri", hq: true },
-  { name: "Nakuru" },
-  { name: "Kisumu" },
-  { name: "Mwingi" },
-  { name: "Emali" },
-  { name: "Chaka" },
-] as { name: string; hq?: boolean }[];
+  { name: "Githunguri", hq: true, q: "Fresha Dairy, Githunguri, Kenya" },
+  { name: "Nakuru", q: "9G48+3M Nakuru, Kenya" },
+  { name: "Kisumu", q: "VQC9+P9 Kisumu, Kenya" },
+  { name: "Mwingi", q: "3384+5V2 Mwingi, Kenya", street: "K.C.B – Kenya Power Road, Mwingi Township" },
+  { name: "Emali", q: "GG2G+XG Emali, Kenya" },
+  { name: "Chaka", q: "X94X+H7 Chaka, Kenya" },
+] as { name: string; hq?: boolean; q: string; street?: string }[];
