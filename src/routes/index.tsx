@@ -117,7 +117,7 @@ function Home() {
         <div className="container-x relative py-20 md:py-28 text-navy-foreground">
           <div className="max-w-3xl animate-fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold uppercase tracking-widest">
-              <Shield className="h-3.5 w-3.5" /> Licensed by PSIA Kenya
+              <Shield className="h-3.5 w-3.5" /> Licensed by PSRA · Affiliate Member of PSIA
             </div>
             <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05]">
               Professional Security<br />
@@ -147,7 +147,7 @@ function Home() {
           <SectionHeader eyebrow="Why Choose Us" title="Why Choose Gratom Babz" subtitle="Six reasons Kenya's leading homes, corporates and industries trust us with their security." />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { i: Shield, t: "Licensed Security Company", d: "Fully licensed and regulated under Kenya's PSIA framework." },
+              { i: Shield, t: "Licensed Security Company", d: "Fully licensed and regulated by PSRA. Affiliate member of PSIA." },
               { i: Users, t: "Highly Trained Officers", d: "Rigorous vetting, physical training and continuous professional development." },
               { i: Zap, t: "Modern Technology", d: "GPS-tracked patrols, digital reporting and integrated alarm systems." },
               { i: Radio, t: "24-Hour Control Room", d: "Live monitoring and dispatch every hour of every day." },

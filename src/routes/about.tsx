@@ -104,7 +104,7 @@ function About() {
           <SectionHeader eyebrow="Why Clients Choose Us" title="Built for measurable security outcomes" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { i: Shield, t: "Licensed & Insured", d: "Regulated under Kenya's PSIA framework with full liability coverage." },
+              { i: Shield, t: "Licensed & Insured", d: "Fully licensed and regulated by PSRA, affiliate member of PSIA, with full liability coverage." },
               { i: Users, t: "Vetted Officers", d: "Background checks, medicals and continuous training." },
               { i: Zap, t: "Rapid Response", d: "Deployed reaction teams and armed backup in minutes." },
               { i: Award, t: "Proven Track Record", d: "Trusted by estates, corporates and industrial parks nationwide." },
