@@ -141,7 +141,7 @@ function Careers() {
               <Briefcase className="h-8 w-8 text-gold mx-auto mb-3" />
               <p className="font-semibold text-navy">No current job vacancy</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                There are no openings at the moment. You're still welcome to submit an application below and we'll keep it on file.
+                There are no openings at the moment. Please check back later.
               </p>
             </div>
           ) : (
@@ -162,6 +162,7 @@ function Careers() {
         </div>
       </section>
 
+      {vacancies.length > 0 && (
       <section id="apply" className="py-20">
         <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div>
@@ -207,6 +208,7 @@ function Careers() {
 
         </div>
       </section>
+      )}
     </>
   );
 }
