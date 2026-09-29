@@ -158,7 +158,7 @@ function Branches() {
 }
 
 const freshaSites = [
-  { name: "Githunguri", hq: true, q: "Fresha Dairy, Githunguri, Kenya" },
+  { name: "Githunguri", hq: true, q: "WQRH+H4H Githunguri, Kenya" },
   { name: "Nakuru", q: "9G48+3M Nakuru, Kenya" },
   { name: "Kisumu", q: "VQC9+P9 Kisumu, Kenya" },
   { name: "Mwingi", q: "3384+5V2 Mwingi, Kenya", street: "K.C.B – Kenya Power Road, Mwingi Township" },
