@@ -7,6 +7,7 @@ import motoAsset from "../assets/moto-riders.jpg.asset.json";
 import cctvAsset from "../assets/cctv-install.jpg.asset.json";
 import responseAsset from "../assets/response-unit.jpg.asset.json";
 import teamAsset from "../assets/guard-parade.jpg.asset.json";
+import pickupAsset from "../assets/patrol-truck-blue.jpg.asset.json";
 import { SectionHeader } from "../components/site/Section";
 
 export const Route = createFileRoute("/")({
@@ -78,6 +79,7 @@ function Counters() {
 const SLIDES = [
   { src: heroAsset.url, alt: "Gratom Babz branded patrol vehicles" },
   { src: k9Asset.url, alt: "Gratom Babz K9 officer with dog" },
+  { src: pickupAsset.url, alt: "Gratom Babz blue backup patrol pickup" },
   { src: responseAsset.url, alt: "Gratom Babz response unit officers" },
   { src: motoAsset.url, alt: "Gratom Babz motorcycle patrol riders" },
   { src: cctvAsset.url, alt: "CCTV installation by Gratom Babz" },
