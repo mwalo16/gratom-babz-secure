@@ -129,7 +129,7 @@ function Branches() {
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-navy">Fresha Dairy Brands — Guarding Services</h2>
             <p className="mt-3 text-muted-foreground">
-              We provide manned guarding for Fresha Dairy Brands, a milk processing and production company, at its headquarters and regional depots across Kenya.
+              We provide manned guarding for Fresha Dairy Brands, a milk processing and production company, at its Githunguri processing plant and regional depots across Kenya.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -145,7 +145,7 @@ function Branches() {
                   <MapPin className="h-5 w-5 text-gold" />
                   <h3 className="font-bold text-lg text-navy">{s.name}</h3>
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">{s.hq ? "Fresha Headquarters (Main Offices)" : "Fresha Depot"}</div>
+                <div className="text-sm text-muted-foreground mt-1">{s.hq ? "Fresha Dairy Processing Plant & Central Depot" : "Fresha Depot"}</div>
                 {s.street && <div className="text-sm text-muted-foreground">{s.street}</div>}
                 <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4 text-gold" /> 24/7 Manned Guarding</div>
               </a>
