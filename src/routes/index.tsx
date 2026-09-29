@@ -172,7 +172,7 @@ function Home() {
           <div className="relative">
             <img src={responseAsset.url} alt="Gratom Babz response unit officers on parade" loading="lazy" width={1600} height={900} className="rounded-2xl shadow-xl w-full h-auto object-cover" />
             <div className="absolute -bottom-6 -right-4 md:-right-8 rounded-xl bg-navy text-navy-foreground px-6 py-4 shadow-xl border border-gold/30">
-              <div className="text-3xl font-bold text-gold">15+</div>
+              <div className="text-3xl font-bold text-gold">18+</div>
               <div className="text-xs uppercase tracking-wider">Years of Excellence</div>
             </div>
           </div>
