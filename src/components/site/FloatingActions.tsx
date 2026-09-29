@@ -22,10 +22,13 @@ export function FloatingActions() {
           <ArrowUp className="h-5 w-5" />
         </button>
       )}
-      <a href="tel:0729337005" aria-label="Call" className="relative h-12 w-12 rounded-full gradient-navy text-white shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
+      <a href="tel:0729337005" aria-label="Call" title="Call Us Now" className="group relative h-12 w-12 rounded-full gradient-navy text-white shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
         <span className="absolute inset-0 rounded-full bg-gold/60 animate-ping" />
         <span className="absolute -inset-1 rounded-full border-2 border-gold/50 animate-pulse" />
         <Phone className="relative h-5 w-5 animate-[wiggle_1.5s_ease-in-out_infinite]" />
+        <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md bg-navy px-3 py-1.5 text-sm font-medium text-navy-foreground shadow-lg opacity-0 translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0">
+          Call Us Now
+        </span>
       </a>
       <a
         href={WHATSAPP_URL}
