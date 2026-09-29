@@ -127,9 +127,9 @@ function Branches() {
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gold mb-3">
               <span className="h-px w-8 bg-gold" /> Client Deployments
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-navy">Fresha Dairy — Guarding Services</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-navy">Fresha Dairy Brands — Guarding Services</h2>
             <p className="mt-3 text-muted-foreground">
-              We provide manned guarding for Fresha, a milk processing and production company, at its headquarters and regional depots across Kenya.
+              We provide manned guarding for Fresha Dairy Brands, a milk processing and production company, at its headquarters and regional depots across Kenya.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
