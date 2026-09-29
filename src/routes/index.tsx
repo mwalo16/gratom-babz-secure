@@ -95,12 +95,12 @@ function HeroSlides() {
       {SLIDES.map((s, idx) => (
         <img key={s.src + idx} src={s.src} alt={s.alt} width={1920} height={1080}
           loading={idx === 0 ? "eager" : "lazy"}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${idx === i ? "opacity-100" : "opacity-0"}`} />
+          className={`absolute inset-0 h-full w-full object-cover object-center brightness-110 contrast-105 saturate-125 transition-opacity duration-1000 ${idx === i ? "opacity-100" : "opacity-0"}`} />
       ))}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+      <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {SLIDES.map((_, idx) => (
           <button key={idx} aria-label={`Show picture ${idx + 1}`} onClick={() => setI(idx)}
-            className={`h-2.5 rounded-full transition-all ${idx === i ? "w-8 bg-gold" : "w-2.5 bg-white/60"}`} />
+            className={`h-2.5 rounded-full shadow transition-all ${idx === i ? "w-8 bg-gold" : "w-2.5 bg-white/70"}`} />
         ))}
       </div>
     </>
@@ -111,10 +111,10 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[88svh] md:min-h-[80vh] lg:min-h-[92vh] flex items-end md:items-center overflow-hidden">
         <HeroSlides />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/40" />
-        <div className="container-x relative py-20 md:py-28 text-navy-foreground">
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/45 to-navy/10 md:bg-gradient-to-r md:from-navy/80 md:via-navy/40 md:to-transparent" />
+        <div className="container-x relative z-10 pt-28 pb-12 md:py-24 text-navy-foreground">
           <div className="max-w-3xl animate-fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold uppercase tracking-widest">
               <Shield className="h-3.5 w-3.5" /> Licensed by PSRA · Affiliate Member of PSIA
