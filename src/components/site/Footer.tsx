@@ -79,6 +79,7 @@ export function Footer() {
             {(["/about","/services","/gallery","/branches","/careers","/contact"] as const).map((s) => (
               <li key={s}><Link to={s} className="hover:text-gold capitalize">{s.slice(1)}</Link></li>
             ))}
+            <li><Link to="/blog/choosing-a-security-company-kenya" className="hover:text-gold">Choosing a Security Company</Link></li>
           </ul>
         </div>
 
