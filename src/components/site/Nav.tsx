@@ -27,8 +27,7 @@ export function Nav() {
   return (
     <>
       <div className="hidden md:block bg-navy text-navy-foreground text-xs">
-        <div className="container-x flex items-center justify-between py-2">
-          <span className="opacity-70">gtbabzservices@gmail.com</span>
+        <div className="container-x flex items-center justify-end py-2">
           <span className="text-gold font-medium">...be assured of the BEST!</span>
         </div>
       </div>
