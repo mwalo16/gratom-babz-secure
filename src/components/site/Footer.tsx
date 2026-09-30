@@ -90,7 +90,9 @@ export function Footer() {
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Alt: 0726 459 010</li>
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Alt: 0716 383 502</li>
             <li className="flex items-start gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> Head Office: 020 234 1729</li>
-            <li className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-gold" /> gtbabzservices@gmail.com</li>
+            {["gtbabzservices@gmail.com", "info@gratombabzservices.com", "Gratombabzservices@yahoo.com"].map((m) => (
+              <li key={m} className="flex items-start gap-2"><Mail className="h-4 w-4 mt-0.5 text-gold" /> <a href={`mailto:${m}`} className="hover:text-gold break-all">{m}</a></li>
+            ))}
           </ul>
         </div>
 
