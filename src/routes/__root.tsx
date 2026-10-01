@@ -115,7 +115,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const bare = pathname.startsWith("/admin") || pathname.startsWith("/auth");
   // Set MAINTENANCE_ON to false to bring the full website back.
-  const MAINTENANCE_ON = true;
+  const MAINTENANCE_ON = false;
   const maintenance = MAINTENANCE_ON || import.meta.env.VITE_MAINTENANCE_MODE === "true";
   return (
     <QueryClientProvider client={queryClient}>
