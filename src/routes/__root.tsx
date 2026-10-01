@@ -16,6 +16,7 @@ import { Nav } from "../components/site/Nav";
 import { Footer } from "../components/site/Footer";
 import { FloatingActions } from "../components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
+import { Maintenance } from "../components/site/Maintenance";
 
 function NotFoundComponent() {
   return (
@@ -113,9 +114,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const bare = pathname.startsWith("/admin") || pathname.startsWith("/auth");
+  const maintenance = import.meta.env.VITE_MAINTENANCE_MODE === "true";
   return (
     <QueryClientProvider client={queryClient}>
-      {bare ? (
+      {maintenance && !bare ? (
+        <Maintenance />
+      ) : bare ? (
         <Outlet />
       ) : (
         <div className="min-h-screen flex flex-col">
