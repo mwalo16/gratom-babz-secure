@@ -62,7 +62,7 @@ export function Footer() {
             </div>
           </div>
           <p className="mt-4 text-sm text-white/70 leading-relaxed">
-            ...be assured of the BEST! A licensed Kenyan private security company delivering 24/7 guarding, dog services, alarm response, CCTV, electric fencing and fleet tracking.
+            ...be assured of the BEST. A licensed Kenyan private security company delivering 24/7 guarding, dog services, alarm response, CCTV, electric fencing and fleet tracking.
           </p>
           <div className="mt-5 flex gap-3">
             {[Facebook, Twitter, Instagram, Linkedin].map((I, i) => (
