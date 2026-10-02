@@ -28,7 +28,7 @@ export function Nav() {
     <>
       <div className="hidden md:block bg-navy text-navy-foreground text-xs">
         <div className="container-x flex items-center justify-end py-2">
-          <span className="text-gold font-medium">...be assured of the BEST</span>
+          <span className="text-gold font-medium">...be assured of the BEST!</span>
         </div>
       </div>
       <header

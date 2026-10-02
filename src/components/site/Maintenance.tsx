@@ -15,7 +15,7 @@ export function Maintenance() {
           <p>Limuru Control Room: <a href="tel:+254707846623" className="text-gold font-semibold">0707 846 623</a></p>
           <p>Email: <a href="mailto:info@gratombabzservices.com" className="text-gold font-semibold">info@gratombabzservices.com</a></p>
         </div>
-        <p className="mt-10 text-xs opacity-60">Gratom Babz Security Services Ltd — Your Security, Our Priority</p>
+        <p className="mt-10 text-xs opacity-60">Gratom Babz Security Services Ltd — ...be assured of the BEST</p>
       </div>
     </div>
   );
