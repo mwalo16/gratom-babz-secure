@@ -103,6 +103,22 @@ function AuthPage() {
           </button>
         </form>
 
+        {mode === "signin" && (
+          <button
+            type="button"
+            onClick={async () => {
+              if (!email) { setMsg({ type: "error", text: "Enter your email above first, then tap Forgot password." }); return; }
+              setBusy(true); setMsg(null);
+              const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
+              setBusy(false);
+              setMsg(error ? { type: "error", text: error.message } : { type: "info", text: "If that email has an account, a password reset link has been sent. Check your inbox and spam folder." });
+            }}
+            className="mt-3 w-full text-sm text-navy font-medium hover:underline"
+          >
+            Forgot password?
+          </button>
+        )}
+
         <button
           onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMsg(null); }}
           className="mt-4 w-full text-sm text-muted-foreground hover:text-navy"
