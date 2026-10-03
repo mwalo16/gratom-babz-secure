@@ -8,6 +8,13 @@
       "when": 1790754447266,
       "tag": "0000_tighten_public_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791003662308,
+      "tag": "0001_super_admin_remove_admins",
+      "breakpoints": true
     }
   ]
 }
