@@ -15,6 +15,13 @@
       "when": 1791003662308,
       "tag": "0001_super_admin_remove_admins",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791004419190,
+      "tag": "0002_reinvite_existing_admin",
+      "breakpoints": true
     }
   ]
 }
