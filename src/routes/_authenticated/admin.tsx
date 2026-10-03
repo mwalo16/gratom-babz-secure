@@ -558,6 +558,30 @@ function Admins() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const { data: myId } = useQuery({
+    queryKey: ["my-user-id"],
+    queryFn: async () => (await supabase.auth.getUser()).data.user?.id ?? null,
+  });
+
+  const removeAdmin = useMutation({
+    mutationFn: async (a: { id: string; email: string | null }) => {
+      const { error, count } = await supabase
+        .from("user_roles")
+        .delete({ count: "exact" })
+        .eq("user_id", a.id)
+        .eq("role", "admin");
+      if (error) throw error;
+      if (!count) throw new Error("Could not remove this admin.");
+      if (a.email) await supabase.from("admin_invites").delete().eq("email", a.email.toLowerCase());
+    },
+    onSuccess: () => {
+      toast.success("Admin removed");
+      qc.invalidateQueries({ queryKey: ["admin_profiles"] });
+      qc.invalidateQueries({ queryKey: ["admin_invites"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Panel title="Invite an admin">
@@ -592,9 +616,19 @@ function Admins() {
         {admins.length === 0 ? <Empty text="No admins found." /> : (
           <ul className="space-y-2">
             {admins.map((a) => (
-              <li key={a.id} className="rounded-md border px-3 py-2 text-sm">
-                <div className="font-medium text-navy">{a.full_name ?? "Admin"}</div>
-                <div className="text-xs text-muted-foreground">{a.email}</div>
+              <li key={a.id} className="flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm">
+                <div>
+                  <div className="font-medium text-navy">{a.full_name ?? "Admin"}</div>
+                  <div className="text-xs text-muted-foreground">{a.email}</div>
+                </div>
+                {isSuperAdmin && a.id !== myId && (
+                  <button
+                    onClick={() => { if (confirm(`Remove ${a.email ?? "this admin"} as admin?`)) removeAdmin.mutate(a); }}
+                    className="text-xs text-muted-foreground hover:text-destructive"
+                  >
+                    Remove
+                  </button>
+                )}
               </li>
             ))}
           </ul>
