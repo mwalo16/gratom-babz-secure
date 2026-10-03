@@ -117,6 +117,25 @@ function RootComponent() {
   // Set MAINTENANCE_ON to false to bring the full website back.
   const MAINTENANCE_ON = false;
   const maintenance = MAINTENANCE_ON || import.meta.env.VITE_MAINTENANCE_MODE === "true";
+  const router = useRouter();
+
+  // Password reset links can land on any page (e.g. the homepage). Send them to the reset page.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes("type=recovery") && !window.location.pathname.startsWith("/reset-password")) {
+      window.location.replace("/reset-password" + hash);
+      return;
+    }
+    let sub: { unsubscribe: () => void } | undefined;
+    import("@/integrations/supabase/client").then(({ supabase }) => {
+      sub = supabase.auth.onAuthStateChange((event) => {
+        if (event === "PASSWORD_RECOVERY" && !window.location.pathname.startsWith("/reset-password")) {
+          router.navigate({ to: "/reset-password", replace: true });
+        }
+      }).data.subscription;
+    });
+    return () => sub?.unsubscribe();
+  }, [router]);
   return (
     <QueryClientProvider client={queryClient}>
       {maintenance && !bare ? (
