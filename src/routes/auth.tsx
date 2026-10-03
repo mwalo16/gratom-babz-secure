@@ -47,7 +47,14 @@ function AuthPage() {
           password,
           options: { emailRedirectTo: window.location.origin + "/admin", data: { full_name: fullName } },
         });
-        if (error) throw error;
+        if (error) {
+          if (/already registered|already exists/i.test(error.message)) {
+            setMode("signin");
+            setMsg({ type: "info", text: "You already have an account. Please sign in with your email and password." });
+            return;
+          }
+          throw error;
+        }
         if (data.session) navigate({ to: "/admin", replace: true });
         else setMsg({ type: "info", text: "Check your email to confirm your account, then sign in." });
       }
