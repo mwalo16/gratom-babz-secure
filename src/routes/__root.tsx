@@ -114,8 +114,8 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const bare = pathname.startsWith("/admin") || pathname.startsWith("/auth") || pathname.startsWith("/reset-password");
-  // Set MAINTENANCE_ON to false to bring the full website back.
-  const MAINTENANCE_ON = true;
+  // Set MAINTENANCE_ON to true to show the Coming Soon page.
+  const MAINTENANCE_ON = false;
   const maintenance = MAINTENANCE_ON || import.meta.env.VITE_MAINTENANCE_MODE === "true";
   const router = useRouter();
 
