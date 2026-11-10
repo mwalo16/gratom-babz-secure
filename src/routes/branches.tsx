@@ -120,48 +120,6 @@ function Branches() {
           </div>
         </div>
       </section>
-
-      <section className="py-16 bg-muted/40 border-t">
-        <div className="container-x">
-          <div className="max-w-3xl mb-10">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gold mb-3">
-              <span className="h-px w-8 bg-gold" /> Client Deployments
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-navy">Fresha Dairy Brands — Guarding Services</h2>
-            <p className="mt-3 text-muted-foreground">
-              We provide manned guarding for Fresha Dairy Brands, a milk processing and production company, at its Githunguri processing plant and regional depots across Kenya.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {freshaSites.map((s) => (
-              <a
-                key={s.name}
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`rounded-xl border p-5 bg-background transition-all hover:shadow-lg ${s.hq ? "border-gold" : "hover:border-navy"}`}
-              >
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-gold" />
-                  <h3 className="font-bold text-lg text-navy">{s.name}</h3>
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">{s.hq ? "Fresha Dairy Processing Plant & Central Depot" : "Fresha Depot"}</div>
-                {s.street && <div className="text-sm text-muted-foreground">{s.street}</div>}
-                <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4 text-gold" /> 24/7 Manned Guarding</div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }
-
-const freshaSites = [
-  { name: "Githunguri", hq: true, q: "WQRH+H4H Githunguri, Kenya" },
-  { name: "Nakuru", q: "9G48+3M Nakuru, Kenya" },
-  { name: "Kisumu", q: "VQC9+P9 Kisumu, Kenya" },
-  { name: "Mwingi", q: "3384+5V2 Mwingi, Kenya", street: "K.C.B – Kenya Power Road, Mwingi Township" },
-  { name: "Emali", q: "GG2G+XG Emali, Kenya" },
-  { name: "Chaka", q: "X94X+H7 Chaka, Kenya" },
-] as { name: string; hq?: boolean; q: string; street?: string }[];
