@@ -3,12 +3,22 @@ import { PageHero } from "../components/site/Section";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { useState } from "react";
 
-// approximate coordinates as percentages within a stylized Kenya bounding box
-const branches = [
-  { name: "Head Office", location: "Kiambu Rd, off Kugeria North", region: "Kiambu County", postal: "P.O. Box 1800 – 00900 Kiambu", phone: "020 234 1729", alt: "0726 459 010 · 0729 337 005 · 0716 383 502" },
+type Branch = {
+  name: string;
+  location: string;
+  region: string;
+  phone: string;
+  postal?: string;
+  alt?: string;
+  /** exact map query used when the office name on its own is not specific enough */
+  map?: string;
+};
+
+const branches: Branch[] = [
+  { name: "Head Office", location: "Kiambu Rd, off Kugeria North", region: "Kiambu County", postal: "P.O. Box 1800 – 00900 Kiambu", phone: "020 234 1729", alt: "0726 459 010 · 0729 337 005 · 0716 383 502", map: "RR6R+672 Kiambu, Kenya" },
   { name: "Kiambu", location: "Rumathi House", region: "Kiambu County", phone: "0723 684 901" },
   { name: "Kikuyu / Wangige", location: "Bishop Kariuki Centre", region: "Kiambu County", phone: "0716 546 096" },
-  { name: "Nairobi", location: "Ngara Fig Tree – Bhaveshi Centre", region: "Nairobi County", phone: "0726 382 628" },
+  { name: "Nairobi", location: "Ngara Fig Tree – Bhaveshi Building Centre", region: "Nairobi County", phone: "0726 382 628", map: "Bhavesh Centre, Ngara Rd, Nairobi, Kenya" },
   { name: "Limuru", location: "Ushirika Centre", region: "Kiambu County", phone: "0707 846 623" },
   { name: "Thika", location: "Thika town", region: "Kiambu County", phone: "0736 859 500" },
   { name: "Mombasa / Malindi", location: "Savannah Building", region: "Coast Region", phone: "0725 478 460" },
@@ -50,7 +60,7 @@ export const Route = createFileRoute("/branches")({
 function Branches() {
   const [active, setActive] = useState<string>("Head Office");
   const current = branches.find((b) => b.name === active) ?? branches[0];
-  const mapQuery = current.name === "Head Office" ? "RR6R+672 Kiambu, Kenya" : `${current.location}, ${current.name}, Kenya`;
+  const mapQuery = current.map ?? `${current.location}, ${current.name}, Kenya`;
   return (
     <>
       <PageHero title="Branches Across Kenya" subtitle="A growing network of regional offices coordinated from a central 24-hour control room." />
