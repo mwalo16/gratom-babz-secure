@@ -50,7 +50,7 @@ export const Route = createFileRoute("/branches")({
 function Branches() {
   const [active, setActive] = useState<string>("Head Office");
   const current = branches.find((b) => b.name === active) ?? branches[0];
-  const mapQuery = `${current.location}, ${current.name === "Head Office" ? "Kiambu" : current.name}, Kenya`;
+  const mapQuery = current.name === "Head Office" ? "RR6R+672 Kiambu, Kenya" : `${current.location}, ${current.name}, Kenya`;
   return (
     <>
       <PageHero title="Branches Across Kenya" subtitle="A growing network of regional offices coordinated from a central 24-hour control room." />
