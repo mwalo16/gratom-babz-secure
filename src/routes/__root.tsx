@@ -83,6 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           email: "gtbabzservices@gmail.com",
           image: "/__l5e/assets-v1/552e8570-c3fa-4acb-a9f5-18b23b075fcc/gbs-logo.png",
           logo: "/__l5e/assets-v1/552e8570-c3fa-4acb-a9f5-18b23b075fcc/gbs-logo.png",
+          url: "https://www.gratombabzsecurityservices.com",
           address: {
             "@type": "PostalAddress",
             streetAddress: "Kiambu Rd, off Kugeria North",
@@ -90,6 +91,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressRegion: "Kiambu County",
             postalCode: "00900",
             addressCountry: "KE",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: -1.1676,
+            longitude: 36.8394,
           },
         }),
       },
