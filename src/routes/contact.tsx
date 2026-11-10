@@ -118,7 +118,7 @@ function Contact() {
             <div className="rounded-2xl overflow-hidden border shadow-md">
               <iframe
                 title="Google Maps"
-                src="https://www.google.com/maps?q=Kiambu+Road,+Kiambu,+Kenya&output=embed"
+                src="https://www.google.com/maps?q=RR6R%2B672%20Kiambu%2C%20Kenya&output=embed"
                 width="100%"
                 height="380"
                 loading="lazy"
