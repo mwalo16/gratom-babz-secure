@@ -14,14 +14,14 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Gratom Babz Security Services — Security Company Kenya" },
-      { name: "description", content: "Licensed Kenyan security company offering manned guarding, CCTV, K9, mobile patrol and 24/7 alarm response nationwide." },
+      { name: "description", content: "Licensed Private kenyan security company offering manned guarding,CCTV,K9 Services,mobile patrol and 24/7 Alarm response nationwide" },
       { property: "og:title", content: "Gratom Babz Security Services Ltd" },
-      { property: "og:description", content: "Professional 24/7 security solutions across Kenya. Your Security, Our Priority." },
+      { property: "og:description", content: "Licensed Private kenyan security company offering manned guarding,CCTV,K9 Services,mobile patrol and 24/7 Alarm response nationwide" },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Gratom Babz Security Services Ltd" },
-      { name: "twitter:description", content: "Professional 24/7 security solutions across Kenya. Your Security, Our Priority." },
+      { name: "twitter:description", content: "Licensed Private kenyan security company offering manned guarding,CCTV,K9 Services,mobile patrol and 24/7 Alarm response nationwide" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
