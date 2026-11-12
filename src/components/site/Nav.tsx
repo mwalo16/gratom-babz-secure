@@ -40,8 +40,8 @@ export function Nav() {
           <Link to="/" className="flex items-center gap-2.5 group">
             <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-11 w-auto object-contain" />
             <div className="leading-tight">
-              <div className="font-display font-bold text-navy text-base sm:text-lg">Gratom Babz</div>
-              <div className="text-[10px] sm:text-[11px] text-muted-foreground tracking-wider uppercase">Security Services Ltd</div>
+              <div className="font-display font-bold text-navy text-base sm:text-lg uppercase">GRATOM BABZ</div>
+              <div className="text-xs sm:text-sm text-muted-foreground tracking-wider uppercase">Security Services Ltd</div>
             </div>
           </Link>
 

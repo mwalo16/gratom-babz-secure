@@ -57,8 +57,8 @@ export function Footer() {
               <img src={logo.url} alt="Gratom Babz Security Services Ltd logo" width={48} height={48} className="h-12 w-auto object-contain" />
             </span>
             <div>
-              <div className="font-display font-bold">Gratom Babz</div>
-              <div className="text-[11px] uppercase tracking-wider text-white/60">Security Services Ltd</div>
+              <div className="font-display font-bold uppercase">GRATOM BABZ</div>
+              <div className="text-sm uppercase tracking-wider text-white/60">Security Services Ltd</div>
             </div>
           </div>
           <p className="mt-4 text-sm text-white/70 leading-relaxed">
