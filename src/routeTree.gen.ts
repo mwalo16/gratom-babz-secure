@@ -21,7 +21,6 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as BlogChoosingASecurityCompanyKenyaRouteImport } from './routes/blog.choosing-a-security-company-kenya'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,12 +81,6 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const BlogChoosingASecurityCompanyKenyaRoute =
-  BlogChoosingASecurityCompanyKenyaRouteImport.update({
-    id: '/blog/choosing-a-security-company-kenya',
-    path: '/blog/choosing-a-security-company-kenya',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,7 +94,6 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/blog/choosing-a-security-company-kenya': typeof BlogChoosingASecurityCompanyKenyaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,7 +107,6 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/blog/choosing-a-security-company-kenya': typeof BlogChoosingASecurityCompanyKenyaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,7 +122,6 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
-  '/blog/choosing-a-security-company-kenya': typeof BlogChoosingASecurityCompanyKenyaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,7 +137,6 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin'
-    | '/blog/choosing-a-security-company-kenya'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -161,7 +150,6 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin'
-    | '/blog/choosing-a-security-company-kenya'
   id:
     | '__root__'
     | '/'
@@ -176,7 +164,6 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/_authenticated/admin'
-    | '/blog/choosing-a-security-company-kenya'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,7 +178,6 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  BlogChoosingASecurityCompanyKenyaRoute: typeof BlogChoosingASecurityCompanyKenyaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -280,13 +266,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/blog/choosing-a-security-company-kenya': {
-      id: '/blog/choosing-a-security-company-kenya'
-      path: '/blog/choosing-a-security-company-kenya'
-      fullPath: '/blog/choosing-a-security-company-kenya'
-      preLoaderRoute: typeof BlogChoosingASecurityCompanyKenyaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -313,8 +292,6 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  BlogChoosingASecurityCompanyKenyaRoute:
-    BlogChoosingASecurityCompanyKenyaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
